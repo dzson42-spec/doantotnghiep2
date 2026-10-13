@@ -1,0 +1,401 @@
+.checkout-page {
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: none;
+  color: hsl(var(--color-text-secondary));
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  transition: color var(--transition-fast);
+}
+
+.back-btn:hover {
+  color: hsl(var(--color-accent));
+}
+
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .checkout-grid {
+    grid-template-columns: 1.5fr 1fr;
+  }
+}
+
+.checkout-form-container {
+  background-color: hsl(var(--color-bg-secondary));
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  border: 1px solid hsl(var(--color-border));
+}
+
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.checkout-error {
+  padding: 0.75rem 0.9rem;
+  border: 1px solid hsl(0 70% 45%/0.5);
+  border-radius: var(--radius-md);
+  background: hsl(0 70% 45%/0.12);
+  color: #fca5a5;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.95rem;
+  color: hsl(var(--color-text-secondary));
+}
+
+.form-group input {
+  background-color: hsl(var(--color-bg-primary));
+  border: 1px solid hsl(var(--color-border));
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  transition: border-color var(--transition-fast);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: hsl(var(--color-accent));
+}
+
+.payment-method-title {
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+.payment-methods {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 600px) {
+  .payment-methods {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.payment-method {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid hsl(var(--color-border));
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.payment-method input {
+  display: none;
+}
+
+.payment-method.active {
+  border-color: hsl(var(--color-accent));
+  background-color: hsl(var(--color-accent) / 0.1);
+  color: hsl(var(--color-accent));
+  font-weight: 600;
+}
+
+.btn-submit {
+  margin-top: 2rem;
+  padding: 1rem;
+  font-size: 1.1rem;
+}
+
+/* Summary Checkout */
+.checkout-summary {
+  background-color: hsl(var(--color-bg-secondary));
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  border: 1px solid hsl(var(--color-border));
+  height: fit-content;
+  position: sticky;
+  top: 90px;
+}
+
+.summary-items {
+  margin-bottom: 1.5rem;
+}
+
+.summary-subtitle {
+  font-size: 1rem;
+  color: hsl(var(--color-text-secondary));
+  margin-bottom: 1rem;
+}
+
+.summary-total-border {
+  border-top: 1px dashed hsl(var(--color-border));
+  padding-top: 1.5rem;
+}
+
+/* Success Page */
+.success-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 70vh;
+  padding: 2rem;
+}
+
+.success-icon {
+  color: hsl(var(--color-success));
+  margin-bottom: 1.5rem;
+}
+
+.success-title {
+  font-size: 2.5rem;
+  color: hsl(var(--color-success));
+  margin-bottom: 1rem;
+}
+
+.success-message {
+  font-size: 1.1rem;
+  color: hsl(var(--color-text-secondary));
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+.ticket-card {
+  background-color: hsl(var(--color-bg-secondary));
+  border: 1px solid hsl(var(--color-border));
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  text-align: left;
+  min-width: 300px;
+  max-width: 500px;
+  width: 100%;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.ticket-card::before,
+.ticket-card::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  background-color: hsl(var(--color-bg-primary));
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.ticket-card::before {
+  left: -10px;
+}
+.ticket-card::after {
+  right: -10px;
+}
+
+.ticket-card h3 {
+  color: hsl(var(--color-accent));
+  margin-bottom: 1.5rem;
+  text-align: center;
+  border-bottom: 1px dashed hsl(var(--color-border));
+  padding-bottom: 1rem;
+}
+
+.ticket-card p {
+  margin-bottom: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ticket-card p strong {
+  color: hsl(var(--color-text-secondary));
+}
+
+/* Coupon Box */
+.coupon-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px dashed hsl(var(--color-border));
+}
+
+.coupon-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.coupon-input {
+  flex: 1;
+  background-color: hsl(var(--color-bg-primary));
+  border: 1px solid hsl(var(--color-border));
+  color: white;
+  padding: 0.6rem 0.8rem;
+  border-radius: var(--radius-md);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.coupon-input:focus {
+  outline: none;
+  border-color: hsl(var(--color-accent));
+}
+
+.coupon-btn {
+  padding: 0.6rem 1.2rem;
+  background-color: hsl(var(--color-accent));
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.coupon-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.coupon-hints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+}
+
+.coupon-tag {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  background: hsl(var(--color-accent) / 0.15);
+  color: hsl(var(--color-accent));
+  border: 1px dashed hsl(var(--color-accent) / 0.4);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.coupon-applied {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: hsl(142 76% 36% / 0.15);
+  border: 1px solid hsl(142 76% 36% / 0.4);
+  border-radius: var(--radius-md);
+  margin-top: 0.75rem;
+  color: #86efac;
+}
+
+.coupon-remove-btn {
+  background: transparent;
+  border: none;
+  color: #f87171;
+  cursor: pointer;
+  font-size: 0.85rem;
+  text-decoration: underline;
+}
+
+.summary-discount {
+  color: #4ade80 !important;
+  font-weight: 600;
+}
+
+/* 1-Click Register Box on Thank You page */
+.one-click-card {
+  background: linear-gradient(145deg, hsl(var(--color-bg-secondary)), hsl(230 25% 14%));
+  border: 1px solid hsl(var(--color-accent) / 0.4);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  max-width: 500px;
+  width: 100%;
+  margin-bottom: 2rem;
+  text-align: left;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.one-click-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.one-click-header h3 {
+  font-size: 1.2rem;
+  color: white;
+  margin: 0;
+}
+
+.one-click-desc {
+  font-size: 0.9rem;
+  color: hsl(var(--color-text-secondary));
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+
+.one-click-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.one-click-input {
+  background-color: hsl(var(--color-bg-primary));
+  border: 1px solid hsl(var(--color-border));
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+}
+
+.one-click-input:focus {
+  outline: none;
+  border-color: hsl(var(--color-accent));
+}
+
+.one-click-btn {
+  background: hsl(var(--color-accent));
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.one-click-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.one-click-success {
+  background: hsl(142 76% 36% / 0.2);
+  border: 1px solid hsl(142 76% 36% / 0.5);
+  color: #86efac;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

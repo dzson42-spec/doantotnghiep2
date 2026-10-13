@@ -1,0 +1,31 @@
+/* Bổ sung vào MovieDetail.css */
+.detail-badges {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.age-badge {
+  background-color: hsl(var(--color-warning));
+  color: black;
+}
+
+.format-badge {
+  background-color: hsl(var(--color-bg-secondary));
+  border: 1px solid hsl(var(--color-accent));
+  color: hsl(var(--color-accent));
+}
+
+.lang-badge {
+  background-color: hsl(var(--color-bg-secondary));
+  border: 1px solid hsl(var(--color-text-secondary));
+  color: hsl(var(--color-text-primary));
+}

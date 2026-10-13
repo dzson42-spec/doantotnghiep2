@@ -1,0 +1,99 @@
+.theaters-page {
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+  min-height: 80vh;
+}
+
+.theaters-header {
+  margin-bottom: 3rem;
+}
+
+.page-subtitle {
+  color: hsl(var(--color-text-secondary));
+  margin-top: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.theaters-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .theaters-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .theaters-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.theater-card {
+  background-color: hsl(var(--color-bg-secondary));
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid hsl(var(--color-border));
+  transition: transform var(--transition-normal);
+}
+
+.theater-card:hover {
+  transform: translateY(-5px);
+  border-color: hsl(var(--color-accent));
+}
+
+.theater-image {
+  height: 200px;
+  background-image: url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.theater-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(21, 24, 30, 0.9), transparent);
+  display: flex;
+  align-items: flex-end;
+  padding: 1.5rem;
+}
+
+.theater-overlay h2 {
+  color: white;
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.theater-info {
+  padding: 1.5rem;
+}
+
+.info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  color: hsl(var(--color-text-secondary));
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.info-icon {
+  color: hsl(var(--color-accent));
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.info-row.hotline {
+  align-items: center;
+  color: white;
+}
+
+.info-row.hotline strong {
+  color: hsl(var(--color-accent));
+  font-size: 1.1rem;
+}

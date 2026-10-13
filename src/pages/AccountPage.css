@@ -1,0 +1,192 @@
+.account-page {
+  min-height: 75vh;
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+}
+.account-hero {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 2rem;
+  border: 1px solid hsl(var(--color-border));
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(
+      circle at 85% 20%,
+      hsl(var(--color-accent) / 0.18),
+      transparent 35%
+    ),
+    hsl(var(--color-bg-secondary));
+  margin-bottom: 1.5rem;
+}
+.account-avatar {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  color: #fff;
+  background: hsl(var(--color-accent));
+  box-shadow: var(--shadow-glow);
+}
+.account-kicker {
+  color: hsl(var(--color-accent));
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+.account-hero h1 {
+  margin: 0.35rem 0;
+}
+.account-hero p,
+.account-panel p {
+  color: hsl(var(--color-text-secondary));
+}
+.account-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.account-panel {
+  padding: 1.5rem;
+  border: 1px solid hsl(var(--color-border));
+  border-radius: var(--radius-lg);
+  background: hsl(var(--color-bg-secondary));
+}
+.account-panel h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 1.15rem;
+}
+.account-detail {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid hsl(var(--color-border));
+  color: hsl(var(--color-text-primary));
+}
+.account-detail svg {
+  color: hsl(var(--color-accent));
+}
+.account-detail span {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.account-detail small {
+  color: hsl(var(--color-text-secondary));
+}
+.account-actions-panel {
+  text-align: center;
+}
+.account-actions-panel h2 {
+  justify-content: center;
+}
+.account-film-icon {
+  color: hsl(var(--color-accent));
+}
+.account-actions-panel .btn {
+  margin-top: 1.25rem;
+}
+.account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+.account-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: hsl(var(--color-text-secondary));
+  font-size: 0.85rem;
+}
+.account-form input {
+  padding: 0.65rem 0.75rem;
+  border: 1px solid hsl(var(--color-border));
+  border-radius: var(--radius-md);
+  background: hsl(var(--color-bg-primary));
+  color: hsl(var(--color-text-primary));
+}
+.account-form input:focus {
+  outline: 1px solid hsl(var(--color-accent));
+}
+.account-alert {
+  margin: 1.5rem 0;
+  padding: 0.8rem 1rem;
+  border-radius: var(--radius-md);
+  background: hsl(var(--color-success) / 0.12);
+  color: hsl(var(--color-success));
+}
+.account-alert.error {
+  background: hsl(0 70% 45%/0.15);
+  color: #fca5a5;
+}
+.account-lower-grid {
+  margin-top: 1.5rem;
+}
+.booking-history {
+  display: flex;
+  flex-direction: column;
+}
+.booking-history-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid hsl(var(--color-border));
+  font-size: 0.9rem;
+}
+.booking-history-row span {
+  color: hsl(var(--color-text-secondary));
+}
+.booking-history-row small {
+  display: block;
+  margin-top: 0.25rem;
+  color: hsl(var(--color-text-secondary));
+}
+.booking-history-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  white-space: nowrap;
+}
+.booking-cancel-btn {
+  border: 0;
+  background: transparent;
+  color: #f87171;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+.booking-cancel-btn:hover {
+  text-decoration: underline;
+}
+.booking-more-btn {
+  margin-top: 1rem;
+}
+.account-logout {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 1rem auto 0;
+  border: 0;
+  background: transparent;
+  color: hsl(var(--color-text-secondary));
+  cursor: pointer;
+}
+.account-logout:hover {
+  color: #f87171;
+}
+@media (max-width: 650px) {
+  .account-hero {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+  .account-grid {
+    grid-template-columns: 1fr;
+  }
+}
