@@ -20,11 +20,26 @@ const logger = winston.createLogger({
 const app = express();
 const allowedOrigins = [process.env.CLIENT_URL, process.env.ADMIN_URL].filter(Boolean);
 
+const isOriginAllowed = (origin) => {
+  if (!origin) return true;
+  // Cho phép tất cả localhost và 127.0.0.1 với mọi port trong môi trường dev
+  if (process.env.NODE_ENV !== 'production') {
+    if (origin.startsWith('http://localhost') || origin.startsWith('http://127.0.0.1')) {
+      return true;
+    }
+  }
+  return allowedOrigins.includes(origin);
+};
+
 app.set('logger', logger);
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: false,
+}));
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+    if (isOriginAllowed(origin)) {
+      return callback(null, true);
+    }
     return callback(new Error('Origin is not allowed by CORS'));
   },
   credentials: true
