@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { CheckCircle, ArrowLeft, Loader2, Sparkles, Tag, Check, ShieldCheck } from "lucide-react";
+import { CheckCircle, ArrowLeft, Loader2, Sparkles, Tag, Check } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import ImgWithFallback from "../components/ImgWithFallback";
 import { apiRequest, register, validatePromotion, claimGuestBooking } from "../lib/api";

@@ -7,7 +7,6 @@ import {
   CalendarDays,
   Film,
   LogOut,
-  MapPin,
   Plus,
   RefreshCw,
   Settings,
@@ -16,23 +15,14 @@ import {
   Ticket,
   Trash2,
   Users,
-  Search,
   Download,
-  CheckCircle,
   Clock,
-  XCircle,
-  Coffee,
   Tag,
   Star,
   Layers,
-  FileText,
-  Printer,
   X,
-  CreditCard,
   Edit,
-  Eye,
   Sliders,
-  AlertTriangle,
 } from "lucide-react";
 import { adminApiRequest as apiRequest, adminLogin as login, adminLogout as logout } from "../lib/api";
 import {
@@ -170,14 +160,14 @@ const AdminApp = () => {
   const [movies, setMovies] = useState([]);
   const [theaters, setTheaters] = useState([]);
   const [auditoriums, setAuditoriums] = useState([]);
-  const [showtimes, setShowtimes] = useState([]);
+  const [_showtimes, setShowtimes] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [users, setUsers] = useState([]);
   const [combos, setCombos] = useState([]);
   const [promotions, setPromotions] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [banners, setBanners] = useState([]);
-  const [settings, setSettings] = useState([]);
+  const [_settings, setSettings] = useState([]);
   const [auditLogs, setAuditLogs] = useState([]);
   const [topMovies, setTopMovies] = useState([]);
   const [revenueReport, setRevenueReport] = useState(null);

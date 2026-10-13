@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { getStoredMovies, getStoredShowtimes } from '../data/mockData';
 import { Play, Clock, Star, Calendar } from 'lucide-react';
@@ -25,7 +25,10 @@ const MovieDetail = () => {
   }, []);
 
   const movie = moviesList.find(m => String(m.id || m._id) === String(id));
-  const movieShowtimes = allShowtimes[id] || (movie?._id && allShowtimes[movie._id]) || [];
+  const movieShowtimes = useMemo(
+    () => allShowtimes[id] || (movie?._id && allShowtimes[movie._id]) || [],
+    [allShowtimes, id, movie]
+  );
   
   const [selectedDate, setSelectedDate] = useState(movieShowtimes[0]?.date || '');
   const [selectedTime, setSelectedTime] = useState(null); // Lưu nguyên object { time, showtimeId }

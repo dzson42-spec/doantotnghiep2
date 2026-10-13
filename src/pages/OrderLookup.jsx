@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
-import { Search, Ticket, Calendar, Clock, MapPin, CheckCircle, AlertCircle, Printer, ArrowRight, UserCheck } from "lucide-react";
+import { Search, Ticket, Calendar, Clock, MapPin, CheckCircle, AlertCircle, Printer, ArrowRight } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { lookupGuestBooking } from "../lib/api";
 import "./OrderLookup.css";
@@ -12,14 +12,6 @@ const OrderLookup = () => {
   const [booking, setBooking] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    const codeParam = searchParams.get("code");
-    const contactParam = searchParams.get("contact");
-    if (codeParam && contactParam) {
-      handleLookup(codeParam, contactParam);
-    }
-  }, [searchParams]);
 
   const handleLookup = async (codeToUse, contactToUse) => {
     const c = (codeToUse || bookingCode).trim();
@@ -40,6 +32,15 @@ const OrderLookup = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const codeParam = searchParams.get("code");
+    const contactParam = searchParams.get("contact");
+    if (codeParam && contactParam) {
+      handleLookup(codeParam, contactParam);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   const onSubmit = (e) => {
     e.preventDefault();
