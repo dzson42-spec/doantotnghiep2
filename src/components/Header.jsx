@@ -30,7 +30,11 @@ const Header = () => {
       }
     };
     window.addEventListener("authChange", syncUser);
-    return () => window.removeEventListener("authChange", syncUser);
+    window.addEventListener("storage", syncUser);
+    return () => {
+      window.removeEventListener("authChange", syncUser);
+      window.removeEventListener("storage", syncUser);
+    };
   }, []);
 
   // Click outside to close user dropdown

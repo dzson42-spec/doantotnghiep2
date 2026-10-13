@@ -5,9 +5,10 @@ export const validate = (schema) => (req, res, next) => {
   });
 
   if (error) {
+    const firstMsg = error.details?.[0]?.message || 'Dữ liệu không hợp lệ';
     return res.status(400).json({
       success: false,
-      message: 'Validation failed',
+      message: firstMsg,
       details: error.details.map((detail) => detail.message)
     });
   }

@@ -7,6 +7,7 @@ const AuthModal = ({ isOpen, onClose }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -16,17 +17,21 @@ const AuthModal = ({ isOpen, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    if (!isLogin && password.length < 6) {
+      setError("Mật khẩu phải có ít nhất 6 ký tự");
+      return;
+    }
     setIsSubmitting(true);
 
     try {
       const user = isLogin
         ? await login(email, password)
-        : await register(name, email, password);
+        : await register(name, email, password, phone);
       localStorage.setItem("currentUser", JSON.stringify(user));
       window.dispatchEvent(new Event("authChange"));
       onClose();
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "Đã xảy ra lỗi, vui lòng thử lại");
     } finally {
       setIsSubmitting(false);
     }
@@ -49,23 +54,34 @@ const AuthModal = ({ isOpen, onClose }) => {
 
         <form className="auth-form" onSubmit={handleSubmit}>
           {!isLogin && (
-            <div className="form-group">
-              <label>Họ tên</label>
-              <input
-                type="text"
-                placeholder="Nhập họ tên"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required={!isLogin}
-              />
-            </div>
+            <>
+              <div className="form-group">
+                <label>Họ tên</label>
+                <input
+                  type="text"
+                  placeholder="Nhập họ tên"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required={!isLogin}
+                />
+              </div>
+              <div className="form-group">
+                <label>Số điện thoại (tùy chọn)</label>
+                <input
+                  type="tel"
+                  placeholder="Nhập số điện thoại"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
+            </>
           )}
 
           <div className="form-group">
-            <label>Email</label>
+            <label>{isLogin ? "Email hoặc số điện thoại" : "Email"}</label>
             <input
-              type="email"
-              placeholder="Nhập email"
+              type={isLogin ? "text" : "email"}
+              placeholder={isLogin ? "Nhập email hoặc số điện thoại" : "Nhập email"}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -76,7 +92,7 @@ const AuthModal = ({ isOpen, onClose }) => {
             <label>Mật khẩu</label>
             <input
               type="password"
-              placeholder="Nhập mật khẩu"
+              placeholder="Nhập mật khẩu (tối thiểu 6 ký tự)"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required

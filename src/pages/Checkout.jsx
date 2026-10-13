@@ -161,8 +161,8 @@ const Checkout = () => {
 
   const handleOneClickRegister = async (e) => {
     e.preventDefault();
-    if (!oneClickPassword || oneClickPassword.length < 8) {
-      setOneClickError("Mật khẩu cần tối thiểu 8 ký tự");
+    if (!oneClickPassword || oneClickPassword.length < 6) {
+      setOneClickError("Mật khẩu cần tối thiểu 6 ký tự");
       return;
     }
     setOneClickLoading(true);

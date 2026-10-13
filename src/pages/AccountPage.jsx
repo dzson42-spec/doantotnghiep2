@@ -30,6 +30,27 @@ const AccountPage = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    const handleSync = () => {
+      try {
+        const u = JSON.parse(localStorage.getItem("currentUser"));
+        setUser(u);
+        if (!u) {
+          navigate("/auth");
+        }
+      } catch {
+        setUser(null);
+        navigate("/auth");
+      }
+    };
+    window.addEventListener("authChange", handleSync);
+    window.addEventListener("storage", handleSync);
+    return () => {
+      window.removeEventListener("authChange", handleSync);
+      window.removeEventListener("storage", handleSync);
+    };
+  }, [navigate]);
+
+  useEffect(() => {
     if (!user) {
       navigate("/auth");
       return;

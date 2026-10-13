@@ -11,8 +11,14 @@ export const apiRequest = async (path, options = {}) => {
     },
     credentials: "include",
   });
-  const payload = await response.json();
-  if (!response.ok) throw new Error(payload.message || "API request failed");
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const errorMsg =
+      payload.details && payload.details.length
+        ? payload.details.join(", ")
+        : payload.message || "Yêu cầu thất bại";
+    throw new Error(errorMsg);
+  }
   return payload.data;
 };
 
@@ -87,8 +93,14 @@ export const adminApiRequest = async (path, options = {}) => {
     },
     credentials: "include",
   });
-  const payload = await response.json();
-  if (!response.ok) throw new Error(payload.message || "API request failed");
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const errorMsg =
+      payload.details && payload.details.length
+        ? payload.details.join(", ")
+        : payload.message || "Yêu cầu thất bại";
+    throw new Error(errorMsg);
+  }
   return payload.data;
 };
 

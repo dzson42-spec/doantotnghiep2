@@ -84,9 +84,8 @@ const AuthPage = () => {
     if (phone && !/^(0|\+84)[0-9]{9,10}$/.test(phone.replace(/\s/g, ''))) {
       errors.phone = "Số điện thoại không hợp lệ";
     }
-    const strength = getPasswordStrength(password);
-    if (strength.score < 3) {
-      errors.password = "Mật khẩu chưa đủ mạnh. Cần ít nhất: chữ hoa, chữ thường và số";
+    if (!password || password.length < 6) {
+      errors.password = "Mật khẩu phải có ít nhất 6 ký tự";
     }
     if (password !== confirmPassword) {
       errors.confirmPassword = "Mật khẩu xác nhận không khớp";

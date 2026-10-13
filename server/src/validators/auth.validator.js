@@ -1,20 +1,19 @@
 import Joi from "joi";
 
-const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
-const passwordMessage =
-  "Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt";
+const passwordPattern = /^.{6,}$/;
+const passwordMessage = "Mật khẩu phải có ít nhất 6 ký tự";
 
 export const registerSchema = Joi.object({
-  name: Joi.string().required().messages({
+  name: Joi.string().trim().required().messages({
     "string.empty": "Vui lòng nhập họ tên",
     "any.required": "Vui lòng nhập họ tên",
   }),
-  email: Joi.string().email().required().messages({
+  email: Joi.string().trim().email().required().messages({
     "string.email": "Định dạng email không hợp lệ",
     "string.empty": "Vui lòng nhập email",
     "any.required": "Vui lòng nhập email",
   }),
-  phone: Joi.string().optional().allow("").messages({
+  phone: Joi.string().trim().optional().allow("").messages({
     "string.base": "Số điện thoại không hợp lệ",
   }),
   password: Joi.string().regex(passwordPattern).required().messages({

@@ -21,26 +21,32 @@ const generateTokens = (userId) => {
 export const register = async (userData) => {
   const { name, email, phone, password } = userData;
 
-  const existingEmail = await User.findOne({ email });
+  const normalizedEmail = email ? email.toLowerCase().trim() : "";
+  const existingEmail = await User.findOne({ email: normalizedEmail });
   if (existingEmail) {
-    const error = new Error("Email already in use");
+    const error = new Error("Email này đã được sử dụng");
     error.statusCode = 400;
     throw error;
   }
 
-  if (phone) {
-    const existingPhone = await User.findOne({ phone });
+  const cleanedPhone =
+    phone && typeof phone === "string" && phone.trim().length > 0
+      ? phone.trim()
+      : undefined;
+
+  if (cleanedPhone) {
+    const existingPhone = await User.findOne({ phone: cleanedPhone });
     if (existingPhone) {
-      const error = new Error("Phone number already in use");
+      const error = new Error("Số điện thoại này đã được sử dụng");
       error.statusCode = 400;
       throw error;
     }
   }
 
   const user = new User({
-    name,
-    email,
-    phone,
+    name: name?.trim(),
+    email: normalizedEmail,
+    ...(cleanedPhone ? { phone: cleanedPhone } : {}),
     passwordHash: password, // Pre-save hook will hash this
   });
 
@@ -53,6 +59,12 @@ export const register = async (userData) => {
 };
 
 export const login = async (identifier, password) => {
+  if (!identifier || !password) {
+    const error = new Error("Vui lòng nhập đầy đủ thông tin đăng nhập");
+    error.statusCode = 400;
+    throw error;
+  }
+
   const normalizedIdentifier = identifier.includes("@")
     ? identifier.toLowerCase().trim()
     : identifier.trim();
@@ -66,14 +78,14 @@ export const login = async (identifier, password) => {
     $or: [{ email: { $in: candidates } }, { phone: normalizedIdentifier }],
   }).select("+passwordHash");
   if (!user || !user.isActive) {
-    const error = new Error("Invalid email or password");
+    const error = new Error("Email/Số điện thoại hoặc mật khẩu không chính xác");
     error.statusCode = 401;
     throw error;
   }
 
   const isMatch = await user.comparePassword(password);
   if (!isMatch) {
-    const error = new Error("Invalid email or password");
+    const error = new Error("Email/Số điện thoại hoặc mật khẩu không chính xác");
     error.statusCode = 401;
     throw error;
   }
