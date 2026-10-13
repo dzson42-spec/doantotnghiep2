@@ -17,6 +17,7 @@ import {
   Users,
   Download,
   Clock,
+  Coffee,
   Tag,
   Star,
   Layers,
