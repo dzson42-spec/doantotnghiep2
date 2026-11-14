@@ -332,7 +332,155 @@ export const generateSeats = (showtimeId) => {
   return seats;
 };
 
-export const initialMovies = [...movies];
+export const initialTheaters = [
+  { _id: "T1", id: 1, name: "CineVite Landmark", address: "Tầng B1, Landmark 81, 720A Điện Biên Phủ, Quận Bình Thạnh, TP.HCM", hotline: "1900 1234" },
+  { _id: "T2", id: 2, name: "CineVite Crescent Mall", address: "Tầng 3, Crescent Mall, 101 Tôn Dật Tiên, Quận 7, TP.HCM", hotline: "1900 1235" },
+  { _id: "T3", id: 3, name: "CineVite Vincom Gò Vấp", address: "Vincom Plaza Gò Vấp, 12 Phan Văn Trị, Phường 7, Quận Gò Vấp, TP.HCM", hotline: "1900 1236" },
+];
+
+export const initialBookings = [
+  {
+    _id: "BK_0704",
+    bookingCode: "CVCDFC0704",
+    movie: { title: "Mai", poster: "https://upload.wikimedia.org/wikipedia/vi/3/36/Mai_2024_poster.jpg" },
+    date: "2026-09-15",
+    time: "16:30",
+    showtimeId: "M2-D1-T4",
+    theaterName: "CineVite Landmark",
+    seats: [{ id: "H10", row: "H", col: 10, type: "couple", price: 200000 }],
+    totalAmount: 200000,
+    discount: 0,
+    finalAmount: 200000,
+    status: "paid",
+    customerName: "hádsjadsa",
+    customerEmail: "schu1325@gmail.com",
+    customerPhone: "0962744848",
+    createdAt: "2026-09-15T09:30:00.000Z",
+  },
+  {
+    _id: "BK_0705",
+    bookingCode: "CVCDFC0705",
+    movie: { title: "Godzilla x Kong: The New Empire" },
+    date: "2026-09-15",
+    time: "19:00",
+    showtimeId: "M3-D1-T5",
+    theaterName: "CineVite Crescent Mall",
+    seats: [
+      { id: "D11", row: "D", col: 11, type: "vip", price: 80000 },
+      { id: "B9", row: "B", col: 9, type: "standard", price: 80000 }
+    ],
+    totalAmount: 160000,
+    discount: 0,
+    finalAmount: 160000,
+    status: "paid",
+    customerName: "Chu Thiên Sơn",
+    customerEmail: "thiensonadmin@gmail.com",
+    customerPhone: "0962744848",
+    createdAt: "2026-09-15T10:15:00.000Z",
+  }
+];
+
+export const defaultUsers = [
+  {
+    id: "u_customer",
+    name: "hádsjadsa",
+    email: "schu1325@gmail.com",
+    phone: "0962744848",
+    role: "customer",
+    address: "Hà Nội, Việt Nam",
+  },
+  {
+    id: "u_admin",
+    name: "Chu Thiên Sơn (Admin)",
+    email: "thiensonadmin@gmail.com",
+    phone: "0962744848",
+    role: "superadmin",
+    address: "Hà Nội, Việt Nam",
+  },
+  {
+    id: "u_superadmin",
+    name: "CineVite Super Admin",
+    email: "admin@cinevite.local",
+    phone: "0962744848",
+    role: "superadmin",
+    address: "Hà Nội, Việt Nam",
+  }
+];
+
+export const getStoredTheaters = () => {
+  try {
+    const raw = localStorage.getItem("cinevite_theaters");
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch {
+    // ignore
+  }
+  return initialTheaters;
+};
+
+export const saveStoredTheaters = (list) => {
+  try {
+    localStorage.setItem("cinevite_theaters", JSON.stringify(list));
+    window.dispatchEvent(new Event("theatersChange"));
+  } catch {
+    // ignore
+  }
+};
+
+export const getStoredBookings = () => {
+  try {
+    const raw = localStorage.getItem("cinevite_all_bookings");
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) return parsed;
+    }
+  } catch {
+    // ignore
+  }
+  return initialBookings;
+};
+
+export const saveStoredBookings = (list) => {
+  try {
+    localStorage.setItem("cinevite_all_bookings", JSON.stringify(list));
+    window.dispatchEvent(new Event("bookingsChange"));
+  } catch {
+    // ignore
+  }
+};
+
+export const addStoredBooking = (booking) => {
+  const all = getStoredBookings();
+  const updated = [booking, ...all.filter(b => b.bookingCode !== booking.bookingCode)];
+  saveStoredBookings(updated);
+
+  // Cập nhật vào lịch sử cá nhân của khách
+  const userKey = booking.customerEmail || "guest";
+  try {
+    const userHistory = JSON.parse(localStorage.getItem(`booking_history_${userKey}`) || "[]");
+    const updatedUserHistory = [booking, ...userHistory.filter(b => b.bookingCode !== booking.bookingCode)];
+    localStorage.setItem(`booking_history_${userKey}`, JSON.stringify(updatedUserHistory));
+  } catch {
+    // ignore
+  }
+  return updated;
+};
+
+// Seed booking ban đầu cho schu1325@gmail.com nếu chưa có
+try {
+  const seedKey = "booking_history_schu1325@gmail.com";
+  if (!localStorage.getItem(seedKey)) {
+    localStorage.setItem(seedKey, JSON.stringify([initialBookings[0]]));
+  }
+  if (!localStorage.getItem("cinevite_all_bookings")) {
+    localStorage.setItem("cinevite_all_bookings", JSON.stringify(initialBookings));
+  }
+} catch {
+  // ignore
+}
+
 export const initialShowtimes = { ...showtimes };
 
 export const getStoredMovies = () => {

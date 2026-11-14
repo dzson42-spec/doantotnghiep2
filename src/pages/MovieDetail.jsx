@@ -5,7 +5,6 @@ import { Play, Clock, Star, Calendar } from 'lucide-react';
 import ImgWithFallback from '../components/ImgWithFallback';
 import TrailerModal from '../components/TrailerModal';
 import './MovieDetail.css';
-import './MovieDetailAdditional.css';
 
 const MovieDetail = () => {
   const { id } = useParams();
@@ -18,17 +17,31 @@ const MovieDetail = () => {
     const handleShowtimes = () => setAllShowtimes(getStoredShowtimes());
     window.addEventListener("moviesChange", handleMovies);
     window.addEventListener("showtimesChange", handleShowtimes);
+    const handleStorage = (e) => {
+      if (!e.key || e.key === "cinevite_movies") handleMovies();
+      if (!e.key || e.key === "cinevite_showtimes") handleShowtimes();
+    };
+    window.addEventListener("storage", handleStorage);
     return () => {
       window.removeEventListener("moviesChange", handleMovies);
       window.removeEventListener("showtimesChange", handleShowtimes);
+      window.removeEventListener("storage", handleStorage);
     };
   }, []);
 
   const movie = moviesList.find(m => String(m.id || m._id) === String(id));
-  const movieShowtimes = useMemo(
-    () => allShowtimes[id] || (movie?._id && allShowtimes[movie._id]) || [],
-    [allShowtimes, id, movie]
-  );
+  const movieShowtimes = useMemo(() => {
+    const mId = movie?.id;
+    const m_Id = movie?._id;
+    return (
+      allShowtimes[id] ||
+      (mId && allShowtimes[mId]) ||
+      (mId && allShowtimes[String(mId)]) ||
+      (m_Id && allShowtimes[m_Id]) ||
+      (m_Id && allShowtimes[String(m_Id)]) ||
+      []
+    );
+  }, [allShowtimes, id, movie]);
   
   const [selectedDate, setSelectedDate] = useState(movieShowtimes[0]?.date || '');
   const [selectedTime, setSelectedTime] = useState(null); // Lưu nguyên object { time, showtimeId }

@@ -13,7 +13,14 @@ const Home = () => {
   useEffect(() => {
     const handleMovies = () => setMoviesList(getStoredMovies());
     window.addEventListener("moviesChange", handleMovies);
-    return () => window.removeEventListener("moviesChange", handleMovies);
+    const handleStorage = (e) => {
+      if (!e.key || e.key === "cinevite_movies") handleMovies();
+    };
+    window.addEventListener("storage", handleStorage);
+    return () => {
+      window.removeEventListener("moviesChange", handleMovies);
+      window.removeEventListener("storage", handleStorage);
+    };
   }, []);
 
   const showingMovies = moviesList.filter(m => m.status === 'showing');
@@ -126,7 +133,7 @@ const Home = () => {
         </div>
         <div className="movies-grid">
           {showingMovies.map(movie => (
-            <MovieCard key={movie.id} movie={movie} />
+            <MovieCard key={movie.id || movie._id} movie={movie} />
           ))}
         </div>
       </section>
@@ -138,7 +145,7 @@ const Home = () => {
         </div>
         <div className="movies-grid">
           {upcomingMovies.map(movie => (
-            <MovieCard key={movie.id} movie={movie} />
+            <MovieCard key={movie.id || movie._id} movie={movie} />
           ))}
         </div>
       </section>

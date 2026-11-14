@@ -16,8 +16,8 @@ const OrderLookup = () => {
   const handleLookup = async (codeToUse, contactToUse) => {
     const c = (codeToUse || bookingCode).trim();
     const ct = (contactToUse || contact).trim();
-    if (!c || !ct) {
-      setError("Vui lòng nhập đầy đủ Mã đặt vé và Số điện thoại hoặc Email");
+    if (!c && !ct) {
+      setError("Vui lòng nhập Mã đặt vé hoặc Số điện thoại/Email");
       return;
     }
     setLoading(true);

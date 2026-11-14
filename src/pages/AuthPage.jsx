@@ -257,6 +257,36 @@ const AuthPage = () => {
             </div>
           )}
 
+          {/* Quick Demo Test Buttons */}
+          <div style={{ display: "flex", gap: "8px", marginBottom: "1.2rem" }}>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              style={{ fontSize: "0.8rem", padding: "6px 10px", flex: 1 }}
+              onClick={() => {
+                setIsLogin(true);
+                setIsForgotPassword(false);
+                setEmail("schu1325@gmail.com");
+                setPassword("123456");
+              }}
+            >
+              👤 Demo Khách (schu1325)
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              style={{ fontSize: "0.8rem", padding: "6px 10px", flex: 1 }}
+              onClick={() => {
+                setIsLogin(true);
+                setIsForgotPassword(false);
+                setEmail("thiensonadmin@gmail.com");
+                setPassword("admin123");
+              }}
+            >
+              ⚡ Demo Admin (thiensonadmin)
+            </button>
+          </div>
+
           <form
             className="auth-form"
             onSubmit={

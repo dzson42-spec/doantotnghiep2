@@ -56,19 +56,30 @@ const AccountPage = () => {
       return;
     }
     const historyKey = user.email || "guest";
-    const localHistory = JSON.parse(
-      localStorage.getItem(`booking_history_${historyKey}`) || "[]",
-    );
-    apiRequest("/bookings/my?limit=20")
-      .then((data) => {
-        const combined = [...(data.items || []), ...localHistory];
-        setBookings([
-          ...new Map(
-            combined.map((item) => [item.bookingCode || item._id, item]),
-          ).values(),
-        ]);
-      })
-      .catch(() => setBookings(localHistory));
+    const refreshHistory = () => {
+      const localHistory = JSON.parse(
+        localStorage.getItem(`booking_history_${historyKey}`) || "[]",
+      );
+      const all = JSON.parse(localStorage.getItem("cinevite_all_bookings") || "[]");
+      const userBookings = all.filter(
+        (b) => b.customerEmail?.toLowerCase() === user.email?.toLowerCase()
+      );
+      const combined = [...localHistory, ...userBookings];
+      const unique = [
+        ...new Map(
+          combined.map((item) => [item.bookingCode || item._id, item]),
+        ).values(),
+      ];
+      setBookings(unique);
+    };
+
+    refreshHistory();
+    window.addEventListener("bookingsChange", refreshHistory);
+    window.addEventListener("storage", refreshHistory);
+    return () => {
+      window.removeEventListener("bookingsChange", refreshHistory);
+      window.removeEventListener("storage", refreshHistory);
+    };
   }, [user, navigate]);
 
   if (!user) {

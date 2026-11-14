@@ -14,7 +14,14 @@ const MoviesList = () => {
   useEffect(() => {
     const handleMovies = () => setMoviesList(getStoredMovies());
     window.addEventListener("moviesChange", handleMovies);
-    return () => window.removeEventListener("moviesChange", handleMovies);
+    const handleStorage = (e) => {
+      if (!e.key || e.key === "cinevite_movies") handleMovies();
+    };
+    window.addEventListener("storage", handleStorage);
+    return () => {
+      window.removeEventListener("moviesChange", handleMovies);
+      window.removeEventListener("storage", handleStorage);
+    };
   }, []);
 
   const genres = [
@@ -83,7 +90,7 @@ const MoviesList = () => {
       {filteredMovies.length > 0 ? (
         <div className="movies-grid">
           {filteredMovies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
+            <MovieCard key={movie.id || movie._id} movie={movie} />
           ))}
         </div>
       ) : (

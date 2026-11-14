@@ -4,6 +4,7 @@ import { CheckCircle, ArrowLeft, Loader2, Sparkles, Tag, Check } from "lucide-re
 import { QRCodeSVG } from "qrcode.react";
 import ImgWithFallback from "../components/ImgWithFallback";
 import { apiRequest, register, validatePromotion, claimGuestBooking } from "../lib/api";
+import { addStoredBooking } from "../data/mockData";
 import "./Checkout.css";
 
 const Checkout = () => {
@@ -127,13 +128,11 @@ const Checkout = () => {
 
       const completedTicketCode = savedBooking.bookingCode;
 
-      // 3. Save local booking history
-      const historyKey = currentUser?.email || formData.email || "guest";
-      const history = JSON.parse(localStorage.getItem(`booking_history_${historyKey}`) || "[]");
-      history.unshift({
+      // 3. Save local booking history & synchronize to Admin
+      const bookingRecord = {
         _id: savedBooking._id || completedTicketCode,
         bookingCode: completedTicketCode,
-        movie: { title: booking.movie.title },
+        movie: { title: booking.movie.title, poster: booking.movie.poster },
         date: booking.date,
         time: booking.time,
         showtimeId: booking.showtimeId,
@@ -146,8 +145,8 @@ const Checkout = () => {
         customerEmail: formData.email,
         customerPhone: formData.phone,
         createdAt: new Date().toISOString(),
-      });
-      localStorage.setItem(`booking_history_${historyKey}`, JSON.stringify(history));
+      };
+      addStoredBooking(bookingRecord);
 
       setTicketCode(completedTicketCode);
       setIsSuccess(true);
