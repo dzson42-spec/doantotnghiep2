@@ -57,20 +57,24 @@ const AccountPage = () => {
     }
     const historyKey = user.email || "guest";
     const refreshHistory = () => {
-      const localHistory = JSON.parse(
-        localStorage.getItem(`booking_history_${historyKey}`) || "[]",
-      );
-      const all = JSON.parse(localStorage.getItem("cinevite_all_bookings") || "[]");
-      const userBookings = all.filter(
-        (b) => b.customerEmail?.toLowerCase() === user.email?.toLowerCase()
-      );
-      const combined = [...localHistory, ...userBookings];
-      const unique = [
-        ...new Map(
-          combined.map((item) => [item.bookingCode || item._id, item]),
-        ).values(),
-      ];
-      setBookings(unique);
+      try {
+        const localHistory = JSON.parse(
+          localStorage.getItem(`booking_history_${historyKey}`) || "[]",
+        );
+        const all = JSON.parse(localStorage.getItem("cinevite_all_bookings") || "[]");
+        const userBookings = (Array.isArray(all) ? all : []).filter(
+          (b) => b && b.customerEmail?.toLowerCase() === user.email?.toLowerCase()
+        );
+        const combined = [...(Array.isArray(localHistory) ? localHistory : []), ...userBookings];
+        const unique = [
+          ...new Map(
+            combined.filter(Boolean).map((item) => [item.bookingCode || item._id, item]),
+          ).values(),
+        ];
+        setBookings(unique);
+      } catch (err) {
+        console.error("Error refreshing account history:", err);
+      }
     };
 
     refreshHistory();

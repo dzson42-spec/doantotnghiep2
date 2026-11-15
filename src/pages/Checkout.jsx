@@ -44,12 +44,19 @@ const Checkout = () => {
   });
 
   useEffect(() => {
-    const data = localStorage.getItem("tempBooking");
-    if (data) {
-      setBooking(JSON.parse(data));
-    } else {
-      navigate("/");
+    try {
+      const data = localStorage.getItem("tempBooking");
+      if (data) {
+        const parsed = JSON.parse(data);
+        if (parsed && typeof parsed === "object") {
+          setBooking(parsed);
+          return;
+        }
+      }
+    } catch {
+      localStorage.removeItem("tempBooking");
     }
+    navigate("/");
   }, [navigate]);
 
   if (!booking) return null;

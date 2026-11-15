@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { getStoredMovies } from "../data/mockData";
+import { getStoredMovies, initialMovies } from "../data/mockData";
 import MovieCard from "../components/MovieCard";
 import "./MoviesList.css";
 
@@ -24,16 +24,20 @@ const MoviesList = () => {
     };
   }, []);
 
+  const safeMovies = Array.isArray(moviesList) && moviesList.length > 0 ? moviesList : initialMovies;
+
   const genres = [
     ...new Set(
-      moviesList.flatMap((movie) => {
+      safeMovies.flatMap((movie) => {
+        if (!movie) return [];
         if (Array.isArray(movie.genre)) return movie.genre;
         return (movie.genre || "").split(", ").filter(Boolean);
       })
     ),
   ].sort();
 
-  const filteredMovies = moviesList.filter((m) => {
+  const filteredMovies = safeMovies.filter((m) => {
+    if (!m || !m.title) return false;
     const matchesSearch = m.title.toLowerCase().includes(search.toLowerCase());
     const matchesFilter = filter === "all" || m.status === filter;
     const genreStr = Array.isArray(m.genre) ? m.genre.join(", ") : m.genre || "";

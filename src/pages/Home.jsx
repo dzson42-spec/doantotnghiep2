@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Play, Star, Clock, Ticket } from 'lucide-react';
-import { getStoredMovies } from '../data/mockData';
+import { getStoredMovies, initialMovies } from '../data/mockData';
 import MovieCard from '../components/MovieCard';
 import ImgWithFallback from '../components/ImgWithFallback';
 import TrailerModal from '../components/TrailerModal';
@@ -23,12 +23,13 @@ const Home = () => {
     };
   }, []);
 
-  const showingMovies = moviesList.filter(m => m.status === 'showing');
-  const upcomingMovies = moviesList.filter(m => m.status === 'upcoming');
+  const safeMovies = Array.isArray(moviesList) && moviesList.length > 0 ? moviesList : initialMovies;
+  const showingMovies = safeMovies.filter(m => m?.status === 'showing');
+  const upcomingMovies = safeMovies.filter(m => m?.status === 'upcoming');
   const [isTrailerOpen, setIsTrailerOpen] = useState(false);
   
   // Extract Youtube ID from mockup
-  const heroMovie = showingMovies[0] || moviesList[0];
+  const heroMovie = showingMovies[0] || safeMovies[0];
   const trailerId = heroMovie?.trailerUrl?.includes("v=")
     ? heroMovie.trailerUrl.split("v=")[1]?.split("&")[0]
     : heroMovie?.id === 1 ? 'Way9Dexny3w' : heroMovie?.id === 2 ? '5C1Jm427eF0' : 'lV1OOlGwExM';

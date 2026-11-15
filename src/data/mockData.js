@@ -412,7 +412,7 @@ export const getStoredTheaters = () => {
     const raw = localStorage.getItem("cinevite_theaters");
     if (raw) {
       const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      if (Array.isArray(parsed) && parsed.length > 0 && parsed[0]?.name) return parsed;
     }
   } catch {
     // ignore
@@ -489,7 +489,7 @@ export const getStoredMovies = () => {
     const raw = localStorage.getItem("cinevite_movies");
     if (raw) {
       const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      if (Array.isArray(parsed) && parsed.length > 0 && parsed[0]?.title) return parsed;
     }
   } catch {
     // ignore
