@@ -8,9 +8,9 @@ import {
   addStoredBooking,
   getStoredTheaters,
   defaultUsers,
-} from "../data/mockData";
+} from "../data/mockData.js";
 
-const API_URL = import.meta.env.VITE_API_URL || "/api";
+const API_URL = (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL) || "/api";
 
 export const apiRequest = async (path, options = {}) => {
   const token = localStorage.getItem("cinevite_access_token") || localStorage.getItem("cinevite_admin_access_token");

@@ -481,6 +481,7 @@ try {
   // ignore
 }
 
+export const initialMovies = [...movies];
 export const initialShowtimes = { ...showtimes };
 
 export const getStoredMovies = () => {

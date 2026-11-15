@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -14,33 +14,33 @@ import AdminApp from "./pages/AdminApp";
 import OrderLookup from "./pages/OrderLookup";
 import "./App.css";
 
+const ClientLayout = () => (
+  <div className="app-wrapper">
+    <Header />
+    <main className="main-content">
+      <Outlet />
+    </main>
+    <Footer />
+  </div>
+);
+
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/admin/*" element={<AdminApp />} />
-        <Route
-          path="*"
-          element={
-            <div className="app-wrapper">
-              <Header />
-              <main className="main-content">
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/auth" element={<AuthPage />} />
-                  <Route path="/account" element={<AccountPage />} />
-                  <Route path="/movies" element={<MoviesList />} />
-                  <Route path="/theaters" element={<TheatersList />} />
-                  <Route path="/lookup" element={<OrderLookup />} />
-                  <Route path="/movie/:id" element={<MovieDetail />} />
-                  <Route path="/book/:id" element={<SeatSelection />} />
-                  <Route path="/checkout" element={<Checkout />} />
-                </Routes>
-              </main>
-              <Footer />
-            </div>
-          }
-        />
+        <Route element={<ClientLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/auth" element={<AuthPage />} />
+          <Route path="/account" element={<AccountPage />} />
+          <Route path="/movies" element={<MoviesList />} />
+          <Route path="/theaters" element={<TheatersList />} />
+          <Route path="/lookup" element={<OrderLookup />} />
+          <Route path="/movie/:id" element={<MovieDetail />} />
+          <Route path="/book/:id" element={<SeatSelection />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="*" element={<Home />} />
+        </Route>
       </Routes>
     </Router>
   );
