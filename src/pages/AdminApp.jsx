@@ -24,6 +24,9 @@ import {
   X,
   Edit,
   Sliders,
+  QrCode,
+  CheckCircle,
+  AlertCircle,
 } from "lucide-react";
 import { adminApiRequest as apiRequest, adminLogin as login, adminLogout as logout } from "../lib/api";
 import {
@@ -213,6 +216,10 @@ const AdminApp = () => {
   const [promoForm, setPromoForm] = useState(emptyPromo);
   const [posForm, setPosForm] = useState(emptyPos);
   const [isPosOpen, setIsPosOpen] = useState(false);
+  const [isScannerOpen, setIsScannerOpen] = useState(false);
+  const [scanInput, setScanInput] = useState("");
+  const [scannedTicket, setScannedTicket] = useState(null);
+  const [scanStatus, setScanStatus] = useState("idle");
   const [bannerForm, setBannerForm] = useState({ title: "", image: "", link: "", isActive: true });
 
   // Filters & Search
@@ -668,6 +675,40 @@ const AdminApp = () => {
     }
   };
 
+  const handleScanTicket = (inputCode) => {
+    const code = (inputCode || scanInput).trim().toUpperCase();
+    if (!code) return;
+
+    const found = bookings.find(
+      (b) =>
+        (b.bookingCode && b.bookingCode.toUpperCase() === code) ||
+        (b._id && String(b._id).toUpperCase() === code)
+    );
+
+    if (!found) {
+      setScannedTicket(null);
+      setScanStatus("not_found");
+      return;
+    }
+
+    setScannedTicket(found);
+    if (found.status === "paid") {
+      setScanStatus("valid");
+    } else if (found.status === "used") {
+      setScanStatus("used");
+    } else if (found.status === "cancelled") {
+      setScanStatus("cancelled");
+    } else {
+      setScanStatus("pending");
+    }
+  };
+
+  const handleConfirmCheckin = async (bookingId) => {
+    await updateBookingStatus(bookingId, "used");
+    setScanStatus("used_now");
+    setScannedTicket((prev) => (prev ? { ...prev, status: "used" } : null));
+  };
+
   // 3. Combos CRUD
   const createCombo = async (e) => {
     e.preventDefault();
@@ -1079,7 +1120,33 @@ const AdminApp = () => {
                   <option value="cancelled">Đã hủy (Cancelled)</option>
                 </select>
               </div>
-              <div className="admin-toolbar-right">
+              <div className="admin-toolbar-right" style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                <button
+                  type="button"
+                  className="btn-scan-qr"
+                  onClick={() => {
+                    setIsScannerOpen(true);
+                    setScanInput("");
+                    setScannedTicket(null);
+                    setScanStatus("idle");
+                  }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    background: "linear-gradient(135deg, #10b981, #059669)",
+                    color: "#fff",
+                    border: "none",
+                    padding: "8px 14px",
+                    borderRadius: "8px",
+                    fontWeight: "600",
+                    cursor: "pointer",
+                    fontSize: "14px",
+                  }}
+                  title="Kiểm tra & Soát vé bằng mã QR (Test Case TC11)"
+                >
+                  <QrCode size={16} /> Quét mã QR Soát vé (TC11)
+                </button>
                 <button className="btn-pos" onClick={() => setIsPosOpen(true)}>
                   <Plus size={16} /> Đặt vé tại quầy (POS)
                 </button>
@@ -1137,7 +1204,263 @@ const AdminApp = () => {
               </div>
             </div>
 
-            {/* Modal: POS Ticket Booking */}
+            {/* Modal: QR Code Scanner for Ticket Verification (TC11) */}
+            {isScannerOpen && (
+              <div className="admin-modal-overlay">
+                <div className="admin-modal-card animate-fade-in" style={{ maxWidth: "560px" }}>
+                  <div className="admin-modal-header">
+                    <h3>
+                      <QrCode size={20} /> Máy Quét Mã QR Soát Vé (Check-in Rạp)
+                    </h3>
+                    <button className="admin-modal-close" onClick={() => setIsScannerOpen(false)}>
+                      <X size={20} />
+                    </button>
+                  </div>
+
+                  <div style={{ padding: "16px 20px" }}>
+                    <p style={{ color: "#94a3b8", fontSize: "14px", marginBottom: "14px" }}>
+                      Nhập mã vé hoặc quét mã QR trên vé điện tử của khách để xác thực vào phòng chiếu (Test Case TC11).
+                    </p>
+
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        handleScanTicket();
+                      }}
+                      style={{ display: "flex", gap: "8px", marginBottom: "16px" }}
+                    >
+                      <input
+                        type="text"
+                        placeholder="Nhập mã đặt vé (VD: CVCDFC0704)..."
+                        value={scanInput}
+                        onChange={(e) => setScanInput(e.target.value)}
+                        style={{
+                          flex: 1,
+                          padding: "10px 14px",
+                          background: "#0d1117",
+                          border: "1px solid #30363d",
+                          borderRadius: "8px",
+                          color: "#fff",
+                          fontSize: "15px",
+                          fontWeight: "600",
+                          letterSpacing: "1px",
+                        }}
+                        autoFocus
+                      />
+                      <button
+                        type="submit"
+                        className="btn btn-primary"
+                        style={{ display: "flex", alignItems: "center", gap: "6px" }}
+                      >
+                        <QrCode size={16} /> Kiểm Tra
+                      </button>
+                    </form>
+
+                    <div style={{ display: "flex", gap: "8px", marginBottom: "20px" }}>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setScanInput("CVCDFC0704");
+                          handleScanTicket("CVCDFC0704");
+                        }}
+                        style={{
+                          background: "rgba(16, 185, 129, 0.15)",
+                          border: "1px solid rgba(16, 185, 129, 0.3)",
+                          color: "#34d399",
+                          borderRadius: "6px",
+                          padding: "6px 12px",
+                          fontSize: "12px",
+                          fontWeight: "600",
+                          cursor: "pointer",
+                        }}
+                      >
+                        ⚡ Thử vé mẫu #CVCDFC0704 (Đồ án)
+                      </button>
+                    </div>
+
+                    {/* MÀN HÌNH KẾT QUẢ XÁC THỰC */}
+                    {scanStatus === "valid" && scannedTicket && (
+                      <div
+                        style={{
+                          background: "rgba(16, 185, 129, 0.15)",
+                          border: "2px solid #10b981",
+                          borderRadius: "12px",
+                          padding: "20px",
+                          textAlign: "center",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: "60px",
+                            height: "60px",
+                            borderRadius: "50%",
+                            background: "#10b981",
+                            color: "#fff",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            margin: "0 auto 12px",
+                          }}
+                        >
+                          <CheckCircle size={36} />
+                        </div>
+                        <h4 style={{ color: "#34d399", fontSize: "18px", fontWeight: "700", marginBottom: "8px" }}>
+                          XÁC THỰC THÀNH CÔNG - VÉ HỢP LỆ (MÀN HÌNH XANH)
+                        </h4>
+                        <p style={{ color: "#cbd5e1", fontSize: "13px", marginBottom: "16px" }}>
+                          Vé đã được thanh toán và đủ điều kiện vào phòng chiếu.
+                        </p>
+
+                        <div
+                          style={{
+                            background: "rgba(0,0,0,0.3)",
+                            borderRadius: "8px",
+                            padding: "12px",
+                            textAlign: "left",
+                            fontSize: "13px",
+                            lineHeight: "1.8",
+                            marginBottom: "16px",
+                          }}
+                        >
+                          <div><strong>Mã đặt vé:</strong> #{scannedTicket.bookingCode}</div>
+                          <div><strong>Phim:</strong> {scannedTicket.movieTitle || scannedTicket.movie?.title}</div>
+                          <div><strong>Suất chiếu:</strong> {scannedTicket.showtimeDate || "Hôm nay"} · {scannedTicket.showtimeTime || "20:00"}</div>
+                          <div><strong>Vị trí ghế:</strong> <span style={{ color: "#facc15", fontWeight: "700" }}>{(scannedTicket.clientSeatLabels || (scannedTicket.seats || []).map((s) => s.id)).join(", ")}</span></div>
+                          <div><strong>Khách hàng:</strong> {scannedTicket.customerName || scannedTicket.user?.name} ({scannedTicket.customerPhone || scannedTicket.user?.phone || "Không SĐT"})</div>
+                          <div><strong>Tổng thanh toán:</strong> {(scannedTicket.finalAmount || 0).toLocaleString("vi-VN")} đ</div>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={() => handleConfirmCheckin(scannedTicket._id)}
+                          style={{
+                            width: "100%",
+                            padding: "12px",
+                            background: "#10b981",
+                            color: "#fff",
+                            border: "none",
+                            borderRadius: "8px",
+                            fontWeight: "700",
+                            fontSize: "15px",
+                            cursor: "pointer",
+                          }}
+                        >
+                          ✅ Xác Nhận Cho Vào Rạp (Đổi sang ĐÃ SOÁT VÉ - USED)
+                        </button>
+                      </div>
+                    )}
+
+                    {scanStatus === "used_now" && (
+                      <div
+                        style={{
+                          background: "rgba(16, 185, 129, 0.2)",
+                          border: "2px solid #10b981",
+                          borderRadius: "12px",
+                          padding: "24px",
+                          textAlign: "center",
+                        }}
+                      >
+                        <CheckCircle size={48} color="#10b981" style={{ margin: "0 auto 12px" }} />
+                        <h4 style={{ color: "#34d399", fontSize: "18px", fontWeight: "700", marginBottom: "6px" }}>
+                          ĐÃ SOÁT VÉ THÀNH CÔNG!
+                        </h4>
+                        <p style={{ color: "#e2e8f0", fontSize: "14px" }}>
+                          Khách hàng đã hoàn tất thủ tục check-in vào phòng chiếu. Trạng thái vé đã chuyển thành <strong>USED</strong>.
+                        </p>
+                      </div>
+                    )}
+
+                    {scanStatus === "used" && scannedTicket && (
+                      <div
+                        style={{
+                          background: "rgba(245, 158, 11, 0.15)",
+                          border: "2px solid #f59e0b",
+                          borderRadius: "12px",
+                          padding: "20px",
+                          textAlign: "center",
+                        }}
+                      >
+                        <AlertCircle size={44} color="#f59e0b" style={{ margin: "0 auto 12px" }} />
+                        <h4 style={{ color: "#fbbf24", fontSize: "17px", fontWeight: "700", marginBottom: "6px" }}>
+                          CẢNH BÁO: VÉ ĐÃ ĐƯỢC SOÁT VÉ TRƯỚC ĐÓ!
+                        </h4>
+                        <p style={{ color: "#e2e8f0", fontSize: "13px" }}>
+                          Vé <strong>#{scannedTicket.bookingCode}</strong> đã được sử dụng. Không cho phép tái sử dụng vé nhiều lần!
+                        </p>
+                      </div>
+                    )}
+
+                    {scanStatus === "cancelled" && scannedTicket && (
+                      <div
+                        style={{
+                          background: "rgba(239, 68, 68, 0.15)",
+                          border: "2px solid #ef4444",
+                          borderRadius: "12px",
+                          padding: "20px",
+                          textAlign: "center",
+                        }}
+                      >
+                        <AlertCircle size={44} color="#ef4444" style={{ margin: "0 auto 12px" }} />
+                        <h4 style={{ color: "#f87171", fontSize: "17px", fontWeight: "700", marginBottom: "6px" }}>
+                          TỪ CHỐI: VÉ ĐÃ BỊ HỦY (CANCELLED)!
+                        </h4>
+                        <p style={{ color: "#e2e8f0", fontSize: "13px" }}>
+                          Vé <strong>#{scannedTicket.bookingCode}</strong> đã bị hủy trên hệ thống. Không hợp lệ để vào rạp.
+                        </p>
+                      </div>
+                    )}
+
+                    {scanStatus === "pending" && scannedTicket && (
+                      <div
+                        style={{
+                          background: "rgba(59, 130, 246, 0.15)",
+                          border: "2px solid #3b82f6",
+                          borderRadius: "12px",
+                          padding: "20px",
+                          textAlign: "center",
+                        }}
+                      >
+                        <AlertCircle size={44} color="#3b82f6" style={{ margin: "0 auto 12px" }} />
+                        <h4 style={{ color: "#60a5fa", fontSize: "17px", fontWeight: "700", marginBottom: "6px" }}>
+                          VÉ CHƯA THANH TOÁN (PENDING)
+                        </h4>
+                        <p style={{ color: "#e2e8f0", fontSize: "13px", marginBottom: "12px" }}>
+                          Khách hàng cần thanh toán tại quầy trước khi soát vé.
+                        </p>
+                        <button
+                          type="button"
+                          className="btn btn-primary"
+                          onClick={() => {
+                            collectBooking(scannedTicket._id);
+                            setIsScannerOpen(false);
+                          }}
+                        >
+                          Thu tiền ngay ({(scannedTicket.finalAmount || 0).toLocaleString("vi-VN")} đ)
+                        </button>
+                      </div>
+                    )}
+
+                    {scanStatus === "not_found" && (
+                      <div
+                        style={{
+                          background: "rgba(239, 68, 68, 0.15)",
+                          border: "1px solid rgba(239, 68, 68, 0.3)",
+                          borderRadius: "12px",
+                          padding: "16px",
+                          textAlign: "center",
+                        }}
+                      >
+                        <p style={{ color: "#f87171", fontSize: "14px", margin: 0 }}>
+                          ❌ Không tìm thấy thông tin vé với mã "<strong>{scanInput}</strong>". Vui lòng kiểm tra lại.
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+            {/* End Modal QR Scanner */}
+
             {isPosOpen && (
               <div className="admin-modal-overlay">
                 <div className="admin-modal-card animate-fade-in">
