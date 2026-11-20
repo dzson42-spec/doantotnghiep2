@@ -154,7 +154,7 @@ const AdminLogin = ({ onLogin }) => {
           Đăng nhập
         </button>
 
-        <div style={{ marginTop: "1.2rem", paddingTop: "1rem", borderTop: "1px solid rgba(255,255,255,0.1)", display: "flex", flexDirection: "column", gap: "8px" }}>
+        <div style={{ marginTop: "1.2rem", paddingTop: "1rem", borderTop: "1px solid #e2e8f0", display: "flex", flexDirection: "column", gap: "8px" }}>
           <button
             type="button"
             className="btn btn-secondary"
@@ -976,12 +976,12 @@ const AdminApp = () => {
             alignItems: "center",
             gap: "8px",
             padding: "10px 16px",
-            color: "#94a3b8",
+            color: "#64748b",
             textDecoration: "none",
             fontSize: "14px",
             borderRadius: "8px",
             margin: "8px 0 4px",
-            border: "1px solid rgba(255,255,255,0.08)",
+            border: "1px solid #e2e8f0",
           }}
         >
           <ArrowLeft size={16} /> <span>Về trang người dùng</span>
@@ -1218,7 +1218,7 @@ const AdminApp = () => {
                   </div>
 
                   <div style={{ padding: "16px 20px" }}>
-                    <p style={{ color: "#94a3b8", fontSize: "14px", marginBottom: "14px" }}>
+                    <p style={{ color: "#64748b", fontSize: "14px", marginBottom: "14px" }}>
                       Nhập mã vé hoặc quét mã QR trên vé điện tử của khách để xác thực vào phòng chiếu (Test Case TC11).
                     </p>
 
@@ -1237,10 +1237,10 @@ const AdminApp = () => {
                         style={{
                           flex: 1,
                           padding: "10px 14px",
-                          background: "#0d1117",
-                          border: "1px solid #30363d",
+                          background: "#ffffff",
+                          border: "1px solid #cbd5e1",
                           borderRadius: "8px",
-                          color: "#fff",
+                          color: "#0f172a",
                           fontSize: "15px",
                           fontWeight: "600",
                           letterSpacing: "1px",
@@ -1264,9 +1264,9 @@ const AdminApp = () => {
                           handleScanTicket("CVCDFC0704");
                         }}
                         style={{
-                          background: "rgba(16, 185, 129, 0.15)",
-                          border: "1px solid rgba(16, 185, 129, 0.3)",
-                          color: "#34d399",
+                          background: "#dcfce7",
+                          border: "1px solid #86efac",
+                          color: "#15803d",
                           borderRadius: "6px",
                           padding: "6px 12px",
                           fontSize: "12px",
@@ -1282,7 +1282,7 @@ const AdminApp = () => {
                     {scanStatus === "valid" && scannedTicket && (
                       <div
                         style={{
-                          background: "rgba(16, 185, 129, 0.15)",
+                          background: "#f0fdf4",
                           border: "2px solid #10b981",
                           borderRadius: "12px",
                           padding: "20px",
@@ -1304,28 +1304,30 @@ const AdminApp = () => {
                         >
                           <CheckCircle size={36} />
                         </div>
-                        <h4 style={{ color: "#34d399", fontSize: "18px", fontWeight: "700", marginBottom: "8px" }}>
+                        <h4 style={{ color: "#059669", fontSize: "18px", fontWeight: "700", marginBottom: "8px" }}>
                           XÁC THỰC THÀNH CÔNG - VÉ HỢP LỆ (MÀN HÌNH XANH)
                         </h4>
-                        <p style={{ color: "#cbd5e1", fontSize: "13px", marginBottom: "16px" }}>
+                        <p style={{ color: "#64748b", fontSize: "13px", marginBottom: "16px" }}>
                           Vé đã được thanh toán và đủ điều kiện vào phòng chiếu.
                         </p>
 
                         <div
                           style={{
-                            background: "rgba(0,0,0,0.3)",
+                            background: "#ffffff",
+                            border: "1px solid #bbf7d0",
                             borderRadius: "8px",
                             padding: "12px",
                             textAlign: "left",
                             fontSize: "13px",
                             lineHeight: "1.8",
                             marginBottom: "16px",
+                            color: "#0f172a",
                           }}
                         >
                           <div><strong>Mã đặt vé:</strong> #{scannedTicket.bookingCode}</div>
                           <div><strong>Phim:</strong> {scannedTicket.movieTitle || scannedTicket.movie?.title}</div>
                           <div><strong>Suất chiếu:</strong> {scannedTicket.showtimeDate || "Hôm nay"} · {scannedTicket.showtimeTime || "20:00"}</div>
-                          <div><strong>Vị trí ghế:</strong> <span style={{ color: "#facc15", fontWeight: "700" }}>{(scannedTicket.clientSeatLabels || (scannedTicket.seats || []).map((s) => s.id)).join(", ")}</span></div>
+                          <div><strong>Vị trí ghế:</strong> <span style={{ color: "#d97706", fontWeight: "700" }}>{(scannedTicket.clientSeatLabels || (scannedTicket.seats || []).map((s) => s.id)).join(", ")}</span></div>
                           <div><strong>Khách hàng:</strong> {scannedTicket.customerName || scannedTicket.user?.name} ({scannedTicket.customerPhone || scannedTicket.user?.phone || "Không SĐT"})</div>
                           <div><strong>Tổng thanh toán:</strong> {(scannedTicket.finalAmount || 0).toLocaleString("vi-VN")} đ</div>
                         </div>
@@ -1353,7 +1355,7 @@ const AdminApp = () => {
                     {scanStatus === "used_now" && (
                       <div
                         style={{
-                          background: "rgba(16, 185, 129, 0.2)",
+                          background: "#f0fdf4",
                           border: "2px solid #10b981",
                           borderRadius: "12px",
                           padding: "24px",
@@ -1361,10 +1363,10 @@ const AdminApp = () => {
                         }}
                       >
                         <CheckCircle size={48} color="#10b981" style={{ margin: "0 auto 12px" }} />
-                        <h4 style={{ color: "#34d399", fontSize: "18px", fontWeight: "700", marginBottom: "6px" }}>
+                        <h4 style={{ color: "#059669", fontSize: "18px", fontWeight: "700", marginBottom: "6px" }}>
                           ĐÃ SOÁT VÉ THÀNH CÔNG!
                         </h4>
-                        <p style={{ color: "#e2e8f0", fontSize: "14px" }}>
+                        <p style={{ color: "#475569", fontSize: "14px" }}>
                           Khách hàng đã hoàn tất thủ tục check-in vào phòng chiếu. Trạng thái vé đã chuyển thành <strong>USED</strong>.
                         </p>
                       </div>
@@ -1373,7 +1375,7 @@ const AdminApp = () => {
                     {scanStatus === "used" && scannedTicket && (
                       <div
                         style={{
-                          background: "rgba(245, 158, 11, 0.15)",
+                          background: "#fefce8",
                           border: "2px solid #f59e0b",
                           borderRadius: "12px",
                           padding: "20px",
@@ -1381,10 +1383,10 @@ const AdminApp = () => {
                         }}
                       >
                         <AlertCircle size={44} color="#f59e0b" style={{ margin: "0 auto 12px" }} />
-                        <h4 style={{ color: "#fbbf24", fontSize: "17px", fontWeight: "700", marginBottom: "6px" }}>
+                        <h4 style={{ color: "#d97706", fontSize: "17px", fontWeight: "700", marginBottom: "6px" }}>
                           CẢNH BÁO: VÉ ĐÃ ĐƯỢC SOÁT VÉ TRƯỚC ĐÓ!
                         </h4>
-                        <p style={{ color: "#e2e8f0", fontSize: "13px" }}>
+                        <p style={{ color: "#475569", fontSize: "13px" }}>
                           Vé <strong>#{scannedTicket.bookingCode}</strong> đã được sử dụng. Không cho phép tái sử dụng vé nhiều lần!
                         </p>
                       </div>
@@ -1393,7 +1395,7 @@ const AdminApp = () => {
                     {scanStatus === "cancelled" && scannedTicket && (
                       <div
                         style={{
-                          background: "rgba(239, 68, 68, 0.15)",
+                          background: "#fef2f2",
                           border: "2px solid #ef4444",
                           borderRadius: "12px",
                           padding: "20px",
@@ -1401,10 +1403,10 @@ const AdminApp = () => {
                         }}
                       >
                         <AlertCircle size={44} color="#ef4444" style={{ margin: "0 auto 12px" }} />
-                        <h4 style={{ color: "#f87171", fontSize: "17px", fontWeight: "700", marginBottom: "6px" }}>
+                        <h4 style={{ color: "#dc2626", fontSize: "17px", fontWeight: "700", marginBottom: "6px" }}>
                           TỪ CHỐI: VÉ ĐÃ BỊ HỦY (CANCELLED)!
                         </h4>
-                        <p style={{ color: "#e2e8f0", fontSize: "13px" }}>
+                        <p style={{ color: "#475569", fontSize: "13px" }}>
                           Vé <strong>#{scannedTicket.bookingCode}</strong> đã bị hủy trên hệ thống. Không hợp lệ để vào rạp.
                         </p>
                       </div>
@@ -1413,7 +1415,7 @@ const AdminApp = () => {
                     {scanStatus === "pending" && scannedTicket && (
                       <div
                         style={{
-                          background: "rgba(59, 130, 246, 0.15)",
+                          background: "#eff6ff",
                           border: "2px solid #3b82f6",
                           borderRadius: "12px",
                           padding: "20px",
@@ -1421,10 +1423,10 @@ const AdminApp = () => {
                         }}
                       >
                         <AlertCircle size={44} color="#3b82f6" style={{ margin: "0 auto 12px" }} />
-                        <h4 style={{ color: "#60a5fa", fontSize: "17px", fontWeight: "700", marginBottom: "6px" }}>
+                        <h4 style={{ color: "#2563eb", fontSize: "17px", fontWeight: "700", marginBottom: "6px" }}>
                           VÉ CHƯA THANH TOÁN (PENDING)
                         </h4>
-                        <p style={{ color: "#e2e8f0", fontSize: "13px", marginBottom: "12px" }}>
+                        <p style={{ color: "#475569", fontSize: "13px", marginBottom: "12px" }}>
                           Khách hàng cần thanh toán tại quầy trước khi soát vé.
                         </p>
                         <button
@@ -1443,14 +1445,14 @@ const AdminApp = () => {
                     {scanStatus === "not_found" && (
                       <div
                         style={{
-                          background: "rgba(239, 68, 68, 0.15)",
-                          border: "1px solid rgba(239, 68, 68, 0.3)",
+                          background: "#fef2f2",
+                          border: "1px solid #fecaca",
                           borderRadius: "12px",
                           padding: "16px",
                           textAlign: "center",
                         }}
                       >
-                        <p style={{ color: "#f87171", fontSize: "14px", margin: 0 }}>
+                        <p style={{ color: "#dc2626", fontSize: "14px", margin: 0 }}>
                           ❌ Không tìm thấy thông tin vé với mã "<strong>{scanInput}</strong>". Vui lòng kiểm tra lại.
                         </p>
                       </div>
@@ -1881,8 +1883,8 @@ const AdminApp = () => {
                   </div>
 
                   {/* Nút sinh tự động */}
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.25rem", padding: "10px 14px", background: "rgba(99, 102, 241, 0.1)", borderRadius: "8px", border: "1px solid rgba(99, 102, 241, 0.25)" }}>
-                    <div style={{ fontSize: "0.85rem", color: "#c7d2fe" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.25rem", padding: "10px 14px", background: "rgba(99, 102, 241, 0.08)", borderRadius: "8px", border: "1px solid rgba(99, 102, 241, 0.2)" }}>
+                    <div style={{ fontSize: "0.85rem", color: "#4338ca", fontWeight: "500" }}>
                       Tạo nhanh 42 suất chiếu cho 7 ngày tới (6 suất/ngày từ 09:00 đến 21:45)
                     </div>
                     <button
@@ -1891,13 +1893,13 @@ const AdminApp = () => {
                       style={{ fontSize: "0.8rem", padding: "6px 12px", display: "flex", alignItems: "center", gap: "6px" }}
                       onClick={handleAutoGenerateWeekly}
                     >
-                      <Sparkles size={15} color="#facc15" /> ⚡ Tạo nhanh lịch tuần
+                      <Sparkles size={15} color="#d97706" /> ⚡ Tạo nhanh lịch tuần
                     </button>
                   </div>
 
                   {/* Form thêm suất chiếu mới */}
-                  <form onSubmit={handleAddShowtime} style={{ background: "rgba(255,255,255,0.03)", padding: "14px", borderRadius: "8px", marginBottom: "1.5rem", border: "1px solid rgba(255,255,255,0.08)" }}>
-                    <h4 style={{ margin: "0 0 10px", fontSize: "0.95rem", color: "#f8fafc", display: "flex", alignItems: "center", gap: "6px" }}>
+                  <form onSubmit={handleAddShowtime} style={{ background: "#f8fafc", padding: "14px", borderRadius: "8px", marginBottom: "1.5rem", border: "1px solid #e2e8f0" }}>
+                    <h4 style={{ margin: "0 0 10px", fontSize: "0.95rem", color: "hsl(var(--color-text-primary))", display: "flex", alignItems: "center", gap: "6px" }}>
                       <Plus size={16} /> Thêm suất chiếu mới
                     </h4>
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "10px" }}>
@@ -1963,20 +1965,21 @@ const AdminApp = () => {
 
                     {/* Quick hour buttons */}
                     <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "10px", flexWrap: "wrap" }}>
-                      <span style={{ fontSize: "0.75rem", color: "#94a3b8" }}>Chọn nhanh giờ:</span>
+                      <span style={{ fontSize: "0.75rem", color: "#64748b" }}>Chọn nhanh giờ:</span>
                       {["09:00", "11:30", "14:00", "16:30", "19:00", "21:30", "23:00"].map((t) => (
                         <button
                           key={t}
                           type="button"
                           onClick={() => setShowtimeForm({ ...showtimeForm, time: t })}
                           style={{
-                            background: showtimeForm.time === t ? "hsl(var(--color-accent))" : "rgba(255,255,255,0.08)",
-                            color: "#fff",
+                            background: showtimeForm.time === t ? "hsl(var(--color-accent))" : "#e2e8f0",
+                            color: showtimeForm.time === t ? "#fff" : "#0f172a",
                             border: "none",
                             padding: "3px 8px",
                             borderRadius: "4px",
                             fontSize: "0.75rem",
                             cursor: "pointer",
+                            fontWeight: "500",
                           }}
                         >
                           {t}
@@ -1994,7 +1997,7 @@ const AdminApp = () => {
 
                   {/* Danh sách suất chiếu hiện tại */}
                   <div>
-                    <h4 style={{ margin: "0 0 12px", fontSize: "1rem", color: "#fff", display: "flex", alignItems: "center", gap: "8px" }}>
+                    <h4 style={{ margin: "0 0 12px", fontSize: "1rem", color: "hsl(var(--color-text-primary))", display: "flex", alignItems: "center", gap: "8px" }}>
                       <CalendarDays size={18} /> Các suất chiếu hiện có
                     </h4>
 
@@ -2004,7 +2007,7 @@ const AdminApp = () => {
 
                       if (dateList.length === 0) {
                         return (
-                          <div style={{ textAlign: "center", padding: "2rem", color: "#94a3b8", background: "rgba(255,255,255,0.02)", borderRadius: "8px" }}>
+                          <div style={{ textAlign: "center", padding: "2rem", color: "#64748b", background: "#f8fafc", border: "1px dashed #cbd5e1", borderRadius: "8px" }}>
                             Phim này chưa có suất chiếu nào. Bạn có thể bấm "⚡ Tạo nhanh lịch tuần" ở trên để tự động tạo lịch chiếu.
                           </div>
                         );

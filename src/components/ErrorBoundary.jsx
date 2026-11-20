@@ -40,22 +40,22 @@ class ErrorBoundary extends React.Component {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            background: "#0b0f19",
-            color: "#fff",
+            background: "#ffffff",
+            color: "#0f172a",
             padding: "20px",
             fontFamily: "'Inter', system-ui, sans-serif",
           }}
         >
           <div
             style={{
-              background: "#161d2f",
-              border: "1px solid rgba(225, 29, 72, 0.4)",
+              background: "#ffffff",
+              border: "1px solid #e2e8f0",
               borderRadius: "16px",
               padding: "36px 32px",
               maxWidth: "520px",
               width: "100%",
               textAlign: "center",
-              boxShadow: "0 20px 40px rgba(0,0,0,0.5)",
+              boxShadow: "0 20px 40px rgba(0,0,0,0.08)",
             }}
           >
             <div
@@ -76,7 +76,7 @@ class ErrorBoundary extends React.Component {
             <h2 style={{ fontSize: "22px", marginBottom: "10px", fontWeight: "700" }}>
               Đã xảy ra sự cố hiển thị
             </h2>
-            <p style={{ color: "#94a3b8", fontSize: "14px", lineHeight: "1.6", marginBottom: "24px" }}>
+            <p style={{ color: "#64748b", fontSize: "14px", lineHeight: "1.6", marginBottom: "24px" }}>
               Trình duyệt có thể đang lưu bộ nhớ tạm cũ hoặc dữ liệu xung đột. Vui lòng bấm làm mới hoặc khôi phục dữ liệu gốc để ứng dụng chạy mượt mà.
             </p>
 
@@ -106,9 +106,9 @@ class ErrorBoundary extends React.Component {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "8px",
-                  background: "#21262d",
-                  color: "#e2e8f0",
-                  border: "1px solid #30363d",
+                  background: "#f1f5f9",
+                  color: "#0f172a",
+                  border: "1px solid #cbd5e1",
                   padding: "10px 20px",
                   borderRadius: "8px",
                   fontWeight: "500",
@@ -126,8 +126,8 @@ class ErrorBoundary extends React.Component {
                   alignItems: "center",
                   gap: "8px",
                   background: "transparent",
-                  color: "#94a3b8",
-                  border: "1px solid rgba(255,255,255,0.1)",
+                  color: "#64748b",
+                  border: "1px solid #cbd5e1",
                   padding: "10px 16px",
                   borderRadius: "8px",
                   fontWeight: "500",
@@ -144,11 +144,12 @@ class ErrorBoundary extends React.Component {
                 <summary style={{ cursor: "pointer", marginBottom: "6px" }}>Chi tiết lỗi kỹ thuật</summary>
                 <pre
                   style={{
-                    background: "#0d1117",
+                    background: "#fef2f2",
                     padding: "10px",
                     borderRadius: "6px",
                     overflowX: "auto",
-                    color: "#f87171",
+                    color: "#dc2626",
+                    border: "1px solid #fecaca",
                     whiteSpace: "pre-wrap",
                   }}
                 >

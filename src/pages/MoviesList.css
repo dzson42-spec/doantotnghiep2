@@ -67,7 +67,7 @@
 }
 
 .filter-btn:hover {
-  color: white;
+  color: hsl(var(--color-accent));
 }
 
 .filter-btn.active {
@@ -83,11 +83,7 @@
   padding: 0.25rem 0.75rem 0.25rem 1rem;
   border: 1px solid hsl(var(--color-border));
   border-radius: var(--radius-full);
-  background: linear-gradient(
-    135deg,
-    hsl(var(--color-bg-secondary)),
-    hsl(var(--color-bg-primary))
-  );
+  background: hsl(var(--color-bg-secondary));
   color: hsl(var(--color-text-secondary));
   box-shadow: var(--shadow-sm);
 }
@@ -100,10 +96,10 @@
 .genre-filter select {
   min-width: 175px;
   padding: 0.55rem 2rem 0.55rem 0.7rem;
-  border: 0;
+  border: 1px solid hsl(var(--color-border));
   border-radius: var(--radius-full);
   outline: none;
-  background: hsl(var(--color-bg-secondary));
+  background: #ffffff;
   color: hsl(var(--color-text-primary));
   font-weight: 600;
 }

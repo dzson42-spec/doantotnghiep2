@@ -6,7 +6,7 @@ const ImgWithFallback = ({ src, alt, className }) => {
 
   return (
     hasError ? (
-      <div className={`${className} fallback-img`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'hsl(var(--color-bg-primary))', color: 'hsl(var(--color-text-secondary))' }}>
+      <div className={`${className} fallback-img`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f1f5f9', color: '#94a3b8' }}>
         <ImageIcon size={48} />
       </div>
     ) : (

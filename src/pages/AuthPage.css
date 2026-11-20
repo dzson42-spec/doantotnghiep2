@@ -6,10 +6,10 @@
   background:
     radial-gradient(
       circle at 15% 15%,
-      hsl(var(--color-accent) / 0.16),
+      hsl(var(--color-accent) / 0.08),
       transparent 32%
     ),
-    hsl(var(--color-bg-primary));
+    #ffffff;
 }
 
 .auth-page-layout {
@@ -66,8 +66,8 @@
   padding: 2.25rem;
   border: 1px solid hsl(var(--color-border));
   border-radius: var(--radius-lg);
-  background: hsl(var(--color-bg-secondary));
-  box-shadow: var(--shadow-lg);
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
 }
 
 .auth-card-heading {
@@ -95,6 +95,21 @@
   display: flex;
   flex-direction: column;
   gap: 1.15rem;
+}
+
+.auth-form input {
+  background-color: #ffffff;
+  border: 1px solid hsl(var(--color-border));
+  color: hsl(var(--color-text-primary));
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  transition: border-color var(--transition-fast);
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: hsl(var(--color-accent));
 }
 
 .auth-form small {
@@ -243,7 +258,7 @@
   flex: 1;
   height: 4px;
   border-radius: 2px;
-  background-color: hsl(var(--color-border, 220 13% 25%));
+  background-color: #e2e8f0;
   transition: background-color 0.3s ease;
 }
 
@@ -339,7 +354,7 @@
 
 .auth-divider span {
   position: relative;
-  background-color: hsl(var(--color-bg-secondary));
+  background-color: #ffffff;
   padding: 0 0.75rem;
   font-size: 0.8rem;
   color: hsl(var(--color-text-secondary));
@@ -357,7 +372,7 @@
   justify-content: center;
   gap: 0.45rem;
   padding: 0.65rem 0.5rem;
-  background-color: hsl(var(--color-bg-primary));
+  background-color: #ffffff;
   border: 1px solid hsl(var(--color-border));
   border-radius: var(--radius-md);
   color: hsl(var(--color-text-primary));
@@ -368,7 +383,7 @@
 }
 
 .social-btn:hover {
-  background-color: hsl(var(--color-bg-primary) / 0.8);
+  background-color: #f8fafc;
   border-color: hsl(var(--color-accent) / 0.5);
   transform: translateY(-2px);
 }

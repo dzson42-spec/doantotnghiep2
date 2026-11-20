@@ -33,10 +33,11 @@
 }
 
 .checkout-form-container {
-  background-color: hsl(var(--color-bg-secondary));
+  background-color: #ffffff;
   border-radius: var(--radius-lg);
   padding: 2rem;
   border: 1px solid hsl(var(--color-border));
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
 }
 
 .checkout-form {
@@ -47,10 +48,10 @@
 }
 .checkout-error {
   padding: 0.75rem 0.9rem;
-  border: 1px solid hsl(0 70% 45%/0.5);
+  border: 1px solid #fecaca;
   border-radius: var(--radius-md);
-  background: hsl(0 70% 45%/0.12);
-  color: #fca5a5;
+  background: #fef2f2;
+  color: #dc2626;
 }
 
 .form-group {
@@ -65,9 +66,9 @@
 }
 
 .form-group input {
-  background-color: hsl(var(--color-bg-primary));
+  background-color: #ffffff;
   border: 1px solid hsl(var(--color-border));
-  color: white;
+  color: hsl(var(--color-text-primary));
   padding: 0.75rem 1rem;
   border-radius: var(--radius-md);
   font-size: 1rem;
@@ -127,10 +128,11 @@
 
 /* Summary Checkout */
 .checkout-summary {
-  background-color: hsl(var(--color-bg-secondary));
+  background-color: #ffffff;
   border-radius: var(--radius-lg);
   padding: 2rem;
   border: 1px solid hsl(var(--color-border));
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
   height: fit-content;
   position: sticky;
   top: 90px;
@@ -181,7 +183,7 @@
 }
 
 .ticket-card {
-  background-color: hsl(var(--color-bg-secondary));
+  background-color: #ffffff;
   border: 1px solid hsl(var(--color-border));
   border-radius: var(--radius-lg);
   padding: 2rem;
@@ -191,6 +193,7 @@
   width: 100%;
   margin-bottom: 3rem;
   position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .ticket-card::before,
@@ -245,9 +248,9 @@
 
 .coupon-input {
   flex: 1;
-  background-color: hsl(var(--color-bg-primary));
+  background-color: #ffffff;
   border: 1px solid hsl(var(--color-border));
-  color: white;
+  color: hsl(var(--color-text-primary));
   padding: 0.6rem 0.8rem;
   border-radius: var(--radius-md);
   text-transform: uppercase;
@@ -298,38 +301,38 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 1rem;
-  background: hsl(142 76% 36% / 0.15);
-  border: 1px solid hsl(142 76% 36% / 0.4);
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
   border-radius: var(--radius-md);
   margin-top: 0.75rem;
-  color: #86efac;
+  color: #16a34a;
 }
 
 .coupon-remove-btn {
   background: transparent;
   border: none;
-  color: #f87171;
+  color: #dc2626;
   cursor: pointer;
   font-size: 0.85rem;
   text-decoration: underline;
 }
 
 .summary-discount {
-  color: #4ade80 !important;
+  color: #16a34a !important;
   font-weight: 600;
 }
 
 /* 1-Click Register Box on Thank You page */
 .one-click-card {
-  background: linear-gradient(145deg, hsl(var(--color-bg-secondary)), hsl(230 25% 14%));
-  border: 1px solid hsl(var(--color-accent) / 0.4);
+  background: #ffffff;
+  border: 1px solid hsl(var(--color-border));
   border-radius: var(--radius-lg);
   padding: 1.75rem;
   max-width: 500px;
   width: 100%;
   margin-bottom: 2rem;
   text-align: left;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
 .one-click-header {
@@ -341,7 +344,7 @@
 
 .one-click-header h3 {
   font-size: 1.2rem;
-  color: white;
+  color: hsl(var(--color-text-primary));
   margin: 0;
 }
 
@@ -359,9 +362,9 @@
 }
 
 .one-click-input {
-  background-color: hsl(var(--color-bg-primary));
+  background-color: #ffffff;
   border: 1px solid hsl(var(--color-border));
-  color: white;
+  color: hsl(var(--color-text-primary));
   padding: 0.75rem 1rem;
   border-radius: var(--radius-md);
   font-size: 0.95rem;
@@ -389,9 +392,9 @@
 }
 
 .one-click-success {
-  background: hsl(142 76% 36% / 0.2);
-  border: 1px solid hsl(142 76% 36% / 0.5);
-  color: #86efac;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #16a34a;
   padding: 1rem;
   border-radius: var(--radius-md);
   font-size: 0.95rem;

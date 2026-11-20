@@ -1,20 +1,20 @@
 :root {
-  /* HSL Colors for dark premium aesthetic */
-  --color-bg-primary: 220 15% 10%; /* #15181e */
-  --color-bg-secondary: 220 15% 15%; /* #21262d */
-  --color-text-primary: 0 0% 95%;
-  --color-text-secondary: 220 10% 60%;
+  /* HSL Colors for light modern aesthetic */
+  --color-bg-primary: 0 0% 100%; /* #ffffff */
+  --color-bg-secondary: 210 20% 98%; /* #f8fafc */
+  --color-text-primary: 222 47% 11%; /* #0f172a */
+  --color-text-secondary: 215 16% 47%; /* #64748b */
   --color-accent: 340 82% 52%; /* Pinkish-Red #e11d48 */
   --color-accent-hover: 340 82% 45%;
   
-  --color-success: 142 71% 45%;
-  --color-warning: 38 92% 50%;
-  --color-border: 220 15% 20%;
+  --color-success: 142 71% 38%;
+  --color-warning: 38 92% 45%;
+  --color-border: 214 32% 91%; /* #e2e8f0 */
   
-  --shadow-sm: 0 2px 4px rgba(0,0,0,0.2);
-  --shadow-md: 0 4px 6px rgba(0,0,0,0.3);
-  --shadow-lg: 0 10px 15px rgba(0,0,0,0.4);
-  --shadow-glow: 0 0 15px hsl(var(--color-accent) / 0.5);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.08);
+  --shadow-glow: 0 0 15px hsl(var(--color-accent) / 0.25);
   
   --radius-sm: 4px;
   --radius-md: 8px;
@@ -29,7 +29,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: dark;
+  color-scheme: light;
   color: hsl(var(--color-text-primary));
   background-color: hsl(var(--color-bg-primary));
 
@@ -56,11 +56,11 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: hsl(var(--color-bg-primary));
+  background: #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--color-border));
+  background: #cbd5e1;
   border-radius: var(--radius-sm);
 }
 
@@ -123,13 +123,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-secondary {
-  background-color: hsl(var(--color-bg-secondary));
+  background-color: #ffffff;
   color: hsl(var(--color-text-primary));
   border: 1px solid hsl(var(--color-border));
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-secondary:hover {
-  background-color: hsl(var(--color-border));
+  background-color: hsl(var(--color-bg-secondary));
   transform: translateY(-2px);
 }
 

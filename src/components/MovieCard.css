@@ -1,15 +1,16 @@
 .movie-card {
-  background-color: hsl(var(--color-bg-secondary));
+  background-color: #ffffff;
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-  border: 1px solid transparent;
+  border: 1px solid hsl(var(--color-border));
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .movie-card:hover {
   transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
-  border-color: hsl(var(--color-border));
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+  border-color: hsl(var(--color-accent) / 0.4);
 }
 
 .movie-poster-container {

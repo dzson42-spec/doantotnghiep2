@@ -17,10 +17,11 @@
 
 /* Seat Map Styles */
 .seat-map-container {
-  background-color: hsl(var(--color-bg-secondary));
+  background-color: #ffffff;
   border-radius: var(--radius-lg);
   padding: 2rem;
   border: 1px solid hsl(var(--color-border));
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
   overflow-x: auto;
 }
 
@@ -31,10 +32,10 @@
 
 .screen {
   height: 80px;
-  background: linear-gradient(to bottom, hsl(var(--color-accent) / 0.5), transparent);
+  background: linear-gradient(to bottom, hsl(var(--color-accent) / 0.25), transparent);
   border-top: 4px solid hsl(var(--color-accent));
   border-radius: 50% 50% 0 0 / 20px 20px 0 0;
-  box-shadow: 0 -10px 30px hsl(var(--color-accent) / 0.2);
+  box-shadow: 0 -10px 25px hsl(var(--color-accent) / 0.15);
   margin-bottom: 1rem;
 }
 
@@ -98,7 +99,7 @@
 
 /* Seat Types */
 .seat-btn.standard:not(.booked):not(.selected) .seat-icon {
-  color: hsl(220 20% 35%);
+  color: #64748b;
 }
 
 .seat-btn.vip:not(.booked):not(.selected) .seat-icon {
@@ -125,11 +126,11 @@
 
 .seat-btn.booked {
   cursor: not-allowed;
-  opacity: 0.3;
+  opacity: 0.6;
 }
 
 .seat-btn.booked .seat-icon {
-  color: hsl(var(--color-bg-primary));
+  color: #cbd5e1;
 }
 
 /* Legend */
@@ -156,18 +157,19 @@
   border-radius: 4px;
 }
 
-.seat-demo.standard { background-color: hsl(220 20% 35%); }
+.seat-demo.standard { background-color: #64748b; }
 .seat-demo.vip { background-color: hsl(45 90% 45%); }
 .seat-demo.couple { background-color: hsl(300 70% 45%); }
 .seat-demo.selected { background-color: hsl(var(--color-accent)); }
-.seat-demo.booked { background-color: hsl(var(--color-bg-primary)); opacity: 0.3; }
+.seat-demo.booked { background-color: #cbd5e1; opacity: 0.6; }
 
 /* Booking Summary */
 .booking-summary {
-  background-color: hsl(var(--color-bg-secondary));
+  background-color: #ffffff;
   border-radius: var(--radius-lg);
   padding: 2rem;
   border: 1px solid hsl(var(--color-border));
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   height: fit-content;
   position: sticky;
   top: 90px;

@@ -21,8 +21,8 @@
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  background: radial-gradient(circle at 75% 30%, hsl(var(--color-accent) / 0.18) 0%, transparent 65%),
-              linear-gradient(135deg, #15181e 0%, #1a1e28 50%, #0d1117 100%);
+  background: radial-gradient(circle at 75% 30%, hsl(var(--color-accent) / 0.1) 0%, transparent 65%),
+              linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #f1f5f9 100%);
 }
 
 .hero-backdrop-img {
@@ -30,18 +30,18 @@
   height: 100%;
   object-fit: cover;
   object-position: center 25%;
-  filter: blur(12px) brightness(0.4) saturate(1.2);
+  filter: blur(12px) brightness(1.05) saturate(1.1);
   transform: scale(1.1);
   transition: opacity 0.5s ease;
-  opacity: 0.65;
+  opacity: 0.18;
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(90deg, #15181e 0%, rgba(21, 24, 30, 0.85) 50%, rgba(21, 24, 30, 0.45) 100%),
-              linear-gradient(0deg, #15181e 0%, transparent 50%);
+  background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0.92) 55%, rgba(255, 255, 255, 0.65) 100%),
+              linear-gradient(0deg, #ffffff 0%, transparent 60%);
 }
 
 .hero-container {
@@ -190,16 +190,16 @@
   height: 360px;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.06);
   cursor: pointer;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
   z-index: 2;
-  background-color: hsl(var(--color-bg-secondary));
+  background-color: #ffffff;
 }
 
 .hero-poster-card:hover {
   transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), 0 0 25px hsl(var(--color-accent) / 0.4);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18), 0 0 25px hsl(var(--color-accent) / 0.25);
 }
 
 .hero-poster-img {
@@ -253,7 +253,7 @@
 .hero-poster-glow {
   position: absolute;
   inset: 10% 10% -10% -10%;
-  background: radial-gradient(circle, hsl(var(--color-accent) / 0.3) 0%, transparent 70%);
+  background: radial-gradient(circle, hsl(var(--color-accent) / 0.18) 0%, transparent 70%);
   z-index: 1;
   filter: blur(30px);
   pointer-events: none;
