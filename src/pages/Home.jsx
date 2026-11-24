@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Play, Star, Clock, Ticket } from 'lucide-react';
-import { getStoredMovies, initialMovies } from '../data/mockData';
+import { getStoredMovies, initialMovies, extractYoutubeId } from '../data/mockData';
 import MovieCard from '../components/MovieCard';
 import ImgWithFallback from '../components/ImgWithFallback';
 import TrailerModal from '../components/TrailerModal';
@@ -28,11 +28,9 @@ const Home = () => {
   const upcomingMovies = safeMovies.filter(m => m?.status === 'upcoming');
   const [isTrailerOpen, setIsTrailerOpen] = useState(false);
   
-  // Extract Youtube ID from mockup
+  // Extract Youtube ID from trailerUrl
   const heroMovie = showingMovies[0] || safeMovies[0];
-  const trailerId = heroMovie?.trailerUrl?.includes("v=")
-    ? heroMovie.trailerUrl.split("v=")[1]?.split("&")[0]
-    : heroMovie?.id === 1 ? 'Way9Dexny3w' : heroMovie?.id === 2 ? '5C1Jm427eF0' : 'lV1OOlGwExM';
+  const trailerId = extractYoutubeId(heroMovie?.trailerUrl) || 'Way9Dexny3w';
 
   const heroPosterUrl = heroMovie?.poster || heroMovie?.backdrop;
   const heroBackdropUrl = heroMovie?.backdrop || heroMovie?.poster;
@@ -124,7 +122,7 @@ const Home = () => {
         </div>
       </section>
 
-      <TrailerModal isOpen={isTrailerOpen} onClose={() => setIsTrailerOpen(false)} videoId={trailerId} />
+      <TrailerModal isOpen={isTrailerOpen} onClose={() => setIsTrailerOpen(false)} videoId={trailerId} title={heroMovie?.title} />
 
       {/* Movies List Section */}
       <section className="container section">

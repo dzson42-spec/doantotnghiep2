@@ -17,6 +17,44 @@
   position: relative;
   aspect-ratio: 2 / 3;
   overflow: hidden;
+  background-color: #f3f4f6;
+}
+
+.movie-poster-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.card-age-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 3;
+  padding: 0.22rem 0.55rem;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.28);
+}
+
+.card-age-badge.age-t18 {
+  background-color: #dc2626;
+}
+
+.card-age-badge.age-t16 {
+  background-color: #ea580c;
+}
+
+.card-age-badge.age-t13 {
+  background-color: #eab308;
+  color: #111827;
+}
+
+.card-age-badge.age-p {
+  background-color: #16a34a;
 }
 
 .movie-poster {
@@ -33,16 +71,92 @@
 .movie-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.35) 55%, rgba(0, 0, 0, 0.25) 100%);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 0.85rem;
   opacity: 0;
   transition: opacity var(--transition-normal);
+  z-index: 4;
 }
 
 .movie-card:hover .movie-overlay {
   opacity: 1;
+}
+
+.card-play-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: hsl(var(--color-accent));
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding-left: 3px;
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.5);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.card-play-btn:hover {
+  transform: scale(1.12);
+  background-color: #b91c1c;
+}
+
+.card-overlay-actions {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.card-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.5rem 0.4rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.card-action-btn.detail-btn {
+  background-color: rgba(255, 255, 255, 0.94);
+  color: #111827;
+}
+
+.card-action-btn.detail-btn:hover {
+  background-color: #ffffff;
+}
+
+.card-action-btn.buy-btn {
+  background-color: hsl(var(--color-accent));
+  color: #ffffff;
+}
+
+.card-action-btn.buy-btn:hover {
+  background-color: #b91c1c;
+}
+
+.movie-title-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.movie-title-link:hover .movie-title {
+  color: hsl(var(--color-accent));
 }
 
 .movie-info {

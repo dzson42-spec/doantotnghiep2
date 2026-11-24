@@ -1,23 +1,53 @@
 .movie-detail {
   min-height: 100vh;
+  background-color: #ffffff;
+  padding-top: 1.5rem;
 }
 
-.detail-hero {
-  position: relative;
-  margin-top: -70px;
-  padding-top: 100px;
-  padding-bottom: 3rem;
-  background-size: cover;
-  background-position: center;
-  z-index: 1;
+.detail-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: hsl(var(--color-text-secondary));
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
 }
 
-.detail-hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%),
-              linear-gradient(to top, #ffffff 0%, transparent 100%);
-  z-index: -1;
+.breadcrumb-link {
+  color: hsl(var(--color-text-secondary));
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: color var(--transition-fast);
+}
+
+.breadcrumb-link:hover {
+  color: hsl(var(--color-accent));
+}
+
+.breadcrumb-sep {
+  color: hsl(var(--color-border));
+}
+
+.breadcrumb-current {
+  color: hsl(var(--color-text-primary));
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.detail-wrapper {
+  margin-bottom: 3rem;
+}
+
+.detail-page-heading {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: hsl(var(--color-text-primary));
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #222222;
+  margin-bottom: 2rem;
 }
 
 .detail-content {
@@ -36,17 +66,19 @@
 }
 
 .detail-poster-container {
+  position: relative;
   width: 240px;
   flex-shrink: 0;
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-lg);
   margin: 0 auto;
+  cursor: pointer;
 }
 
 @media (min-width: 768px) {
   .detail-poster-container {
-    width: 300px;
+    width: 270px;
     margin: 0;
   }
 }
@@ -55,6 +87,40 @@
   width: 100%;
   height: auto;
   display: block;
+  transition: transform 0.35s ease;
+}
+
+.detail-poster-container:hover .detail-poster {
+  transform: scale(1.03);
+}
+
+.detail-poster-play {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.detail-poster-container:hover .detail-poster-play {
+  opacity: 1;
+}
+
+.detail-poster-play-btn {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background-color: hsl(var(--color-accent));
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 3px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
 }
 
 .detail-info {
@@ -63,42 +129,128 @@
 }
 
 .detail-title {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 800;
-  margin-bottom: 0.5rem;
-}
-
-.detail-genre {
-  color: hsl(var(--color-text-secondary));
-  font-size: 1.1rem;
-  margin-bottom: 1.5rem;
-}
-
-.detail-meta {
-  display: flex;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-  font-size: 1.1rem;
-}
-
-.detail-synopsis, .detail-cast {
-  margin-bottom: 1.5rem;
-}
-
-.detail-synopsis h3, .detail-cast h3 {
-  font-size: 1.2rem;
+  margin-bottom: 1rem;
   color: hsl(var(--color-text-primary));
-  margin-bottom: 0.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid hsl(var(--color-border));
 }
 
-.detail-synopsis p, .detail-cast p {
+.detail-specs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-bottom: 1.25rem;
+}
+
+.spec-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 0.96rem;
+  line-height: 1.5;
+}
+
+.spec-label {
+  font-weight: 700;
+  color: hsl(var(--color-text-primary));
+  min-width: 96px;
+  flex-shrink: 0;
+}
+
+.spec-value {
   color: hsl(var(--color-text-secondary));
-  line-height: 1.6;
+}
+
+.spec-rated {
+  font-weight: 700;
+  color: hsl(var(--color-text-primary));
+}
+
+.spec-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 700;
+  color: hsl(var(--color-text-primary));
+}
+
+.detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 1.25rem;
+}
+
+.btn-buy-ticket {
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .trailer-btn {
   gap: 0.5rem;
-  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* CGV-style Ribbon Tabs */
+.detail-tabs-bar {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.detail-ribbon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  background-color: hsl(var(--color-accent));
+  color: #ffffff;
+  padding: 0.6rem 2rem;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
+}
+
+.ribbon-tab {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.15rem 0.25rem;
+  transition: color 0.2s ease;
+}
+
+.ribbon-tab:hover,
+.ribbon-tab.active {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.ribbon-divider {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.detail-synopsis-box {
+  background-color: #fafafa;
+  border: 1px solid hsl(var(--color-border));
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  color: hsl(var(--color-text-secondary));
+  line-height: 1.75;
+  font-size: 1rem;
 }
 
 /* Booking Section */
